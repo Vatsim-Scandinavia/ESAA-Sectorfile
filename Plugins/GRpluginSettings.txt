@@ -50,15 +50,15 @@ Label=GND:OTH:2:ATYP,0,0:WTC,0,0,1:RMK,0,1
 Label=GND:UNC:0:ALRT,0,0:COMM,0,1
 Label=GND:UNC:1:CALLSIGN,0,0
 Label=GND:UNC:2:ATYP,0,0:WTC,0,0,1:RMK,0,1
-System_GlobalMenu_Font=JetBrains Mono
+System_GlobalMenu_Font=SMR ESGG
 System_GlobalMenu_FontSize=14
-System_Windows_Font=JetBrains Mono
-System_Lists_Font=JetBrains Mono
-GroundLabel_Font=JetBrains Mono
+System_Windows_Font=SMR ESGG
+System_Lists_Font=SMR ESGG
+GroundLabel_Font=SMR ESGG
 GroundLabel_FontSize=14
 GroundLabel_FontStyle=500,0,0,0
-AppLabel_Font=JetBrains Mono
-ApwLabel_Font=JetBrains Mono
+AppLabel_Font=SMR ESGG
+ApwLabel_Font=SMR ESGG
 
 [ESGP]
 Airport_Runway_End=01:N057.46.19.365:E011.52.11.427
