@@ -2,7 +2,6 @@ Alias
 ICAO
 NavData
 **/aeronav*
-Settings/VoiceChannels.txt
 Plugins/log.txt
 Plugins/CDM_data_****.json
 Plugins/CDM_data_****.txt
