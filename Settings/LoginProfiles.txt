@@ -135,6 +135,10 @@ PROFILE:ESCF_APP:150:5
 ATIS2:Östgöta Approach
 ATIS3:MIL channel C2
 ATIS4:Check coverage at vatglasses.uk
+PROFILE:ESCF_F_APP:150:5
+ATIS2:Östgöta Approach
+ATIS3:MIL channel C
+ATIS4:
 PROFILE:ESCF_P_APP:150:5
 ATIS2:Malmen Precision
 ATIS3:MIL channel B
