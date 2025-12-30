@@ -10,6 +10,8 @@ AIW_FlightRules=1
 AMAN_Airports=ESSA,ESSB,EKCH
 AMAN_MinState=1
 AMAN_URL=http://skytry.xyz/max
+Maps_URL=https://github.com/Vatsim-Scandinavia/ESAA-Sectorfile/raw/refs/heads/main/Plugins/TopSkyMaps.txt
+Areas_URL=https://github.com/Vatsim-Scandinavia/ESAA-Sectorfile/raw/refs/heads/main/Plugins/TopSkyAreas.txt
 
 APW_Filter=0
 APW_Uncontrolled=2
