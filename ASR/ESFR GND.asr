@@ -1,0 +1,32 @@
+DisplayTypeName:Standard ES radar screen
+DisplayTypeNeedRadarContent:1
+DisplayTypeGeoReferenced:1
+SECTORFILE:
+SECTORTITLE:
+Free Text:ESFR RWY\18:freetext
+Free Text:ESFR RWY\36:freetext
+Free Text:ESFR STAND\APN 1:freetext
+Free Text:ESFR STAND\APN 2:freetext
+Free Text:ESFR STAND\APN 3:freetext
+Free Text:ESFR TWY\A:freetext
+Free Text:ESFR TWY\B:freetext
+Free Text:ESFR TWY\C:freetext
+Free Text:ESFR TWY\C:freetext
+Free Text:ESFR TWY\D:freetext
+Geo:ESFR Groundlayout:
+Regions:ESFR GROUND:polygon
+SHOWC:1
+SHOWSB:0
+BELOW:0
+ABOVE:0
+LEADER:5
+SHOWLEADER:1
+TURNLEADER:0
+HISTORY_DOTS:5
+SIMULATION_MODE:4
+DISABLEPANNING:0
+DISABLEZOOMING:0
+DisplayRotation:265.40000
+TAGFAMILY:Matias (built in)
+WINDOWAREA:58.502547:13.035904:58.513223:13.077038
+PLUGIN:TopSky plugin:HideMapData:ACC

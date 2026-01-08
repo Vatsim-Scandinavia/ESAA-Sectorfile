@@ -244,7 +244,7 @@ Setup_LoadView=ESAA
 Airspace_C_Flag=ESGP,ESGT,ESIB,ESMK,ESMS,ESMT,ESMX,ESTA,ESTL
 Setup_LoadView=ESMM
 [ESAA_]
-Airspace_C_Flag=EKCH,EKRN,ESCF,ESCM,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESKN,ESKS,ESMK,ESMQ,ESMS,ESMT,ESMX,ESNN,ESNO,ESNQ,ESNS,ESNU,ESNX,ESNZ,ESOE,ESOK,ESOW,ESPA,ESPE,ESSA,ESSB,ESSD,ESSL,ESSP,ESSU,ESSV,ESTA,ESTL
+Airspace_C_Flag=EKCH,EKRK,EKRN,ESCF,ESCM,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESKN,ESKS,ESMK,ESMQ,ESMS,ESMT,ESMX,ESNN,ESNO,ESNQ,ESNS,ESNU,ESNX,ESNZ,ESOE,ESOK,ESOW,ESPA,ESPE,ESSA,ESSB,ESSD,ESSL,ESSP,ESSU,ESSV,ESTA,ESTL
 Setup_LoadView=ESAA
 Setup_ScreenLat=ESSA
 Label_WTC_Highlight_ATYP=A124,A225,B748,A345,A346,B779,C5,C5M
@@ -287,6 +287,7 @@ Setup_LoadMap=LOA ESMM\RELEASE LINE ESJAH
 Setup_LoadMap=LOA ESMM\AREA MALMO CITY
 [ESOS_1]
 List_TfcMgmt1_ADES=ESSA
+List_TfcMgmt2_ADES=ESSB
 Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 [ESOS_2]
@@ -298,9 +299,6 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=58.5
 [ESOS_3]
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=ELTOK
-List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=ARS
 Setup_LoadView=ESAA
 Setup_ScreenLat=ESSA
 [ESOS_4]
@@ -311,10 +309,8 @@ List_TfcMgmt2_Via=HMR
 Setup_LoadView=ESOS
 Setup_ScreenLat=60.5
 [ESOS_6]
-List_TfcMgmt1_ADES=ESSA
+List_TfcMgmt1_ADES=ESSA,ESSB
 List_TfcMgmt1_Via=XILAN
-List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=XILAN
 Setup_LoadView=ESOS
 Setup_ScreenLat=59.0
 [ESOS_7]
@@ -332,7 +328,10 @@ List_TfcMgmt2_Via=ARS
 Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 [ESOS_9]
-List_TfcMgmt1_ADES=ESSA
+List_TfcMgmt1_ADES=ESSA,ESSB
+List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt2_ADES=ESSA,ESSB
+List_TfcMgmt2_Via=XILAN
 Setup_LoadView=ESOS
 Setup_ScreenLat=57.0
 [ESOS_F]
@@ -353,13 +352,16 @@ List_TfcMgmt2_Via=HMR
 Setup_LoadView=ESOS F+K+N
 Setup_ScreenLat=62.6
 [ESOS_XK]
+List_TfcMgmt1_ADES=EFRO
+List_TfcMgmt1_Via=MISMO
 Setup_LoadView=ESOS K
 Setup_ScreenLat=66.0
 [ESOS_YK]
+List_TfcMgmt1_ADES=ESNQ
 Setup_LoadView=ESOS K
 Setup_ScreenLat=66.0
 [ESMM_]
-Airspace_C_Flag=EKCH,EKRN,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESMK,ESMQ,ESMS,ESMT,ESMX,ESOE,ESOK,ESSV,ESTA,ESTL
+Airspace_C_Flag=EKCH,EKRK,EKRN,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESMK,ESMQ,ESMS,ESMT,ESMX,ESOE,ESOK,ESSV,ESTA,ESTL
 Setup_LoadView=ESMM
 Setup_LoadMap=ACC\ATS ROUTES BASIC
 Setup_LoadMap=LOA ESMM\RELEASE LINE EDWW NORTH
@@ -379,22 +381,26 @@ Setup_ScreenLat=57.0
 [ESMM_3]
 Setup_ScreenLat=56.0
 [ESMM_4]
+List_TfcMgmt1_ADES=ESGG
 Setup_ScreenLat=58.3
 [ESMM_5]
 List_TfcMgmt1_ADES=ESGG
 List_TfcMgmt2_ADES=EKCH
-List_TfcMgmt2_Via=ERNOV,TIDVU
+List_TfcMgmt2_Via=ERNOV
 Setup_ScreenLat=57.0
 [ESMM_6]
+List_TfcMgmt1_ADES=EKCH
+List_TfcMgmt1_Via=TIDVU
+List_TfcMgmt2_ADES=ESMS
 Setup_ScreenLat=57.5
 [ESMM_7]
 List_TfcMgmt1_ADES=EKCH
-List_TfcMgmt1_Via=ERNOV,TIDVU
+List_TfcMgmt1_Via=TIDVU
 List_TfcMgmt2_ADES=ESMS
 Setup_ScreenLat=57.0
 [ESMM_8]
 List_TfcMgmt1_ADES=EKCH
-List_TfcMgmt1_Via=ERNOV,TIDVU
+List_TfcMgmt1_Via=TIDVU
 List_TfcMgmt2_ADES=ESMS
 Setup_ScreenLat=56.0
 [ESMM_9]
@@ -406,9 +412,16 @@ List_TfcMgmt2_ADES=ESMS
 List_ETWR_ADEP=ESMS,EKCH
 Setup_ScreenLat=56.3
 [ESMM_W]
+List_TfcMgmt1_ADES=ESSA
+List_TfcMgmt1_Via=NILUG
+List_TfcMgmt2_ADES=ESSB
+List_TfcMgmt2_Via=TRS
 Setup_ScreenLat=57.5
 [ESMM_Y]
-Airspace_C_Flag=ESSV
+List_TfcMgmt1_ADES=ESSA,ESSB
+List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt2_ADES=EKCH
+List_TfcMgmt2_Via=TIDVU
 Setup_ScreenLat=58.0
 [ESCF_]
 Airspace_C_Flag=ESCF
@@ -519,6 +532,7 @@ Airspace_C_Flag=EKCH,EKRN,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESMK,ESMQ,ESMS,ESMT
 Divergence_RAM=1
 FlightLeg_AutoShow=1
 List_TfcMgmt2_ADES=EKCH
+List_TfcMgmt2_Via=TIDVU
 List_ETWR_ADEP=ESMS,EKCH,EKRN
 Setup_HideMap=TEXT INFO\TMA ALTITUDES
 Setup_LoadMap=LOA ESMM\RELEASE LINE EDWW NORTH
@@ -532,6 +546,7 @@ Airspace_C_Flag=EKCH,EKRN,ESDF,ESGG,ESGJ,ESGP,ESGT,ESIA,ESIB,ESMK,ESMQ,ESMS,ESMT
 Divergence_RAM=1
 FlightLeg_AutoShow=1
 List_TfcMgmt2_ADES=EKCH
+List_TfcMgmt2_Via=TIDVU
 List_ETWR_ADEP=ESMS,EKCH,EKRN
 Setup_HideMap=TEXT INFO\TMA ALTITUDES
 Setup_LoadMap=LOA ESMM\RELEASE LINE EDWW NORTH
