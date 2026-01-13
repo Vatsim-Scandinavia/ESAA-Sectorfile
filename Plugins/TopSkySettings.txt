@@ -22,6 +22,7 @@ APW_Buffer_Vert_L_VFR=0
 APW_Buffer_Vert_U=800
 
 Areas_AUP_Activation=1
+Areas_Remote_Activation=1
 Areas_AUP_UserText=
 Areas_PreActiveTime=900
 Areas_Label_Name=1,0
@@ -55,6 +56,7 @@ FPCP_4D_PathBuffer_Climb_Max=6000
 FPCP_4D_PathBuffer_Descent_Max=6000
 
 HTTP_AUP_URL=https://statsim.net/lfvuseplan/beta/.txt
+HTTP_Areas_Remote_URL=https://lara-backend.lusep.fi/topsky/esaa.txt
 HTTP_GRIB_Latitude_Max=71
 HTTP_GRIB_Latitude_Min=53
 HTTP_GRIB_Longitude_Max=26
