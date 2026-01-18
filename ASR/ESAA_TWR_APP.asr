@@ -225,7 +225,7 @@ Fixes:EPITA:symbol
 Fixes:EPOXO:symbol
 Fixes:ERLUM:symbol
 Fixes:ERNOV:symbol
-Fixes:ERPUK:symbol
+Fixes:ERXEC:symbol
 Fixes:ESEBA:symbol
 Fixes:ESJAH:symbol
 Fixes:ESULO:symbol
@@ -318,6 +318,7 @@ Fixes:INRER:symbol
 Fixes:INREX:symbol
 Fixes:INSUK:symbol
 Fixes:INVOL:symbol
+Fixes:INWIQ:symbol
 Fixes:IRGAL:symbol
 Fixes:ITFAX:symbol
 Fixes:ITVAV:symbol
@@ -566,6 +567,7 @@ Fixes:NZ825:symbol
 Fixes:NZ855:symbol
 Fixes:NZ856:symbol
 Fixes:NZ857:symbol
+Fixes:OBCIV:symbol
 Fixes:ODARU:symbol
 Fixes:ODHAF:symbol
 Fixes:ODIBI:symbol
@@ -786,6 +788,7 @@ Fixes:UT550:symbol
 Fixes:UT551:symbol
 Fixes:UT850:symbol
 Fixes:UVTUK:symbol
+Fixes:VACRA:symbol
 Fixes:VADIN:symbol
 Fixes:VADRU:symbol
 Fixes:VAGAS:symbol
@@ -832,7 +835,6 @@ NDBs:BL:symbol
 NDBs:DD:symbol
 NDBs:DK:symbol
 NDBs:EN:symbol
-NDBs:ERK:symbol
 NDBs:FM:symbol
 NDBs:HT:symbol
 NDBs:JX:symbol
@@ -844,7 +846,6 @@ NDBs:LCF:symbol
 NDBs:LE:symbol
 NDBs:LG:symbol
 NDBs:LM:symbol
-NDBs:LNA:symbol
 NDBs:LT:symbol
 NDBs:LUE:symbol
 NDBs:LX:symbol
@@ -882,7 +883,6 @@ NDBs:WU:symbol
 VORs:ARL:symbol
 VORs:ARS:symbol
 VORs:BOR:symbol
-VORs:HMR:symbol
 VORs:JON:symbol
 VORs:KAL:symbol
 VORs:KRA:symbol
@@ -898,7 +898,6 @@ VORs:SUM:symbol
 VORs:SUN:symbol
 VORs:SUP:symbol
 VORs:TEB:symbol
-VORs:TRS:symbol
 VORs:UME:symbol
 VORs:VSB:symbol
 VORs:VSN:symbol

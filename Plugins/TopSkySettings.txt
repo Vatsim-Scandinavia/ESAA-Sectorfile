@@ -307,9 +307,9 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 {S2}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_LoadView=ESOS
 Setup_ScreenLat=58.5
 {S3}
@@ -318,9 +318,9 @@ Setup_LoadView=ESAA
 Setup_ScreenLat=ESSA
 {S4}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS
 Setup_ScreenLat=60.5
 {S6}
@@ -330,9 +330,9 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=59.0
 {S7}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_LoadView=ESOS
 Setup_ScreenLat=58.5
 {S8}
@@ -344,16 +344,16 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 {S9}
 List_TfcMgmt1_ADES=ESSA,ESSB
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSA,ESSB
 List_TfcMgmt2_Via=XILAN
 Setup_LoadView=ESOS
 Setup_ScreenLat=57.0
 {SF}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS F+K+N
 Setup_ScreenLat=62.0
 {SK}
@@ -361,9 +361,9 @@ Setup_LoadView=ESOS K
 Setup_ScreenLat=66.0
 {SN}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS F+K+N
 Setup_ScreenLat=62.6
 {SXK}
@@ -445,11 +445,11 @@ Window_CARD=1
 List_TfcMgmt1_ADES=ESSA
 List_TfcMgmt1_Via=NILUG
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_ScreenLat=57.5
 {MY}
 List_TfcMgmt1_ADES=ESSA,ESSB
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=EKCH
 List_TfcMgmt2_Via=TIDVU
 Setup_ScreenLat=58.0
