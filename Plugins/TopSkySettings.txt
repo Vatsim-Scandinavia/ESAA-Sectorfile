@@ -11,6 +11,7 @@ AMAN_Airports=ESSA,ESSB,EKCH
 AMAN_MinState=1
 AMAN_URL=http://skytry.xyz/max
 
+APW=0
 APW_Filter=0
 APW_Uncontrolled=2
 APW_UseCFL=0
@@ -30,10 +31,13 @@ Areas_Label_UserText=3,1
 Areas_NOTAM_Activation=0
 CPDLC_AutoAcceptLogon=1
 CPDLC_AutoAcceptLogon_Time=15
+CPDLC_MessageSet_Speed=0
 CPDLC_MinLevel=1
 CPDLC_PDC_Auto=1
+CPDLC_PDC_Fail_On_ATYP_Mismatch=0
 CPDLC_Transfer=1
 CPDLC_VCI_UM_Type=0
+
 
 Color_Informed=152,156,238
 
@@ -60,6 +64,11 @@ Label_Extended_MaxChars=55
 Label_Field18_Flag_Items=SAR,HOSP,MEDEVAC,STATE,HEAD,STAYINFO,NEW
 Label_Rev_Highlight_Delta_ETN=15
 Label_AMA_Default=1100
+List_Sorting_State_Direction=0
+List_DEP_Sorting_GndState=-1
+List_SIL_Sorting=3
+List_TfcMgmt1_Sorting=5
+List_TfcMgmt2_Sorting=5
 List_ETWR_MaxTime=15
 List_Holding_MaxItems=20
 List_Lost_Filter=1
@@ -91,6 +100,7 @@ RDF_Floor=0
 RwyAppLines_Auto=1
 RwyAppLines_Ext_Length=25
 
+SAP=0
 SAP_AHDG=0
 SAP_PreActive=0
 SAP_Risks=0
@@ -297,9 +307,9 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 {S2}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_LoadView=ESOS
 Setup_ScreenLat=58.5
 {S3}
@@ -308,9 +318,9 @@ Setup_LoadView=ESAA
 Setup_ScreenLat=ESSA
 {S4}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS
 Setup_ScreenLat=60.5
 {S6}
@@ -320,9 +330,9 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=59.0
 {S7}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_LoadView=ESOS
 Setup_ScreenLat=58.5
 {S8}
@@ -334,16 +344,16 @@ Setup_LoadView=ESOS
 Setup_ScreenLat=ESSA
 {S9}
 List_TfcMgmt1_ADES=ESSA,ESSB
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=ESSA,ESSB
 List_TfcMgmt2_Via=XILAN
 Setup_LoadView=ESOS
 Setup_ScreenLat=57.0
 {SF}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS F+K+N
 Setup_ScreenLat=62.0
 {SK}
@@ -351,9 +361,9 @@ Setup_LoadView=ESOS K
 Setup_ScreenLat=66.0
 {SN}
 List_TfcMgmt1_ADES=ESSA
-List_TfcMgmt1_Via=HMR
+List_TfcMgmt1_Via=VACRA
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=HMR
+List_TfcMgmt2_Via=VACRA
 Setup_LoadView=ESOS F+K+N
 Setup_ScreenLat=62.6
 {SXK}
@@ -435,11 +445,11 @@ Window_CARD=1
 List_TfcMgmt1_ADES=ESSA
 List_TfcMgmt1_Via=NILUG
 List_TfcMgmt2_ADES=ESSB
-List_TfcMgmt2_Via=TRS
+List_TfcMgmt2_Via=INWIQ
 Setup_ScreenLat=57.5
 {MY}
 List_TfcMgmt1_ADES=ESSA,ESSB
-List_TfcMgmt1_Via=NILUG,TRS
+List_TfcMgmt1_Via=NILUG,INWIQ
 List_TfcMgmt2_ADES=EKCH
 List_TfcMgmt2_Via=TIDVU
 Setup_ScreenLat=58.0
