@@ -170,6 +170,7 @@ Fixes:EMLET:symbol
 Fixes:ENOXI:symbol
 Fixes:ERLUM:symbol
 Fixes:ERNOV:symbol
+Fixes:ERXEC:symbol
 Fixes:ESEBA:symbol
 Fixes:ESJAH:symbol
 Fixes:ETIPU:symbol
@@ -220,6 +221,7 @@ Fixes:INRER:symbol
 Fixes:INREX:symbol
 Fixes:INSUK:symbol
 Fixes:INVOL:symbol
+Fixes:INWIQ:symbol
 Fixes:IRGAL:symbol
 Fixes:ITVAV:symbol
 Fixes:IVGOR:symbol
@@ -329,6 +331,7 @@ Fixes:NOVRI:symbol
 Fixes:NUGPU:symbol
 Fixes:NUGTA:symbol
 Fixes:NUPVI:symbol
+Fixes:OBCIV:symbol
 Fixes:ODHAF:symbol
 Fixes:ODIBI:symbol
 Fixes:ODMEI:symbol
@@ -450,6 +453,7 @@ Fixes:UNGAV:symbol
 Fixes:UNKAS:symbol
 Fixes:UPEVA:symbol
 Fixes:USIKI:symbol
+Fixes:VACRA:symbol
 Fixes:VADIN:symbol
 Fixes:VADRU:symbol
 Fixes:VAGAS:symbol
@@ -479,12 +483,9 @@ Fixes:ZIPCO:symbol
 Geo:ESAA Landmark COAST:
 Geo:ESAA Landmark ISLANDS:
 Geo:ESAA Landmark LAKES:
-NDBs:ERK:symbol
-NDBs:LNA:symbol
 VORs:ARL:symbol
 VORs:ARS:symbol
 VORs:BOR:symbol
-VORs:HMR:symbol
 VORs:JON:symbol
 VORs:KAL:symbol
 VORs:KRA:symbol
@@ -500,7 +501,6 @@ VORs:SUM:symbol
 VORs:SUN:symbol
 VORs:SUP:symbol
 VORs:TEB:symbol
-VORs:TRS:symbol
 VORs:UME:symbol
 VORs:VSB:symbol
 VORs:VSN:symbol
