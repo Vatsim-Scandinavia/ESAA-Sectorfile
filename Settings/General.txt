@@ -33,7 +33,7 @@ m_ShowRouteWhenAccepting:0
 m_AllowAssumedACTagDown:0
 m_InhibitAutoPushOnHandoff:0
 m_RandomSquawks:1
-m_VFRSquawks:7000
+m_VFRSquawks:1000,7000
 m_WhoIsOnlineURL:http://vatsim.metacraft.com/vatsim-data.txt
 m_AutoLoadMetarForActiveAirports:0
 m_LockShowRouteWhenAccepting:0
@@ -112,7 +112,7 @@ m_STCA_HighWarnTime:240
 m_STCA_ShowCFL:0
 m_STCA_PlaySoundOnCFL:0
 m_STCA_PlaySoundOnTrackedOnly:0
-m_AutoCorrelateDisabledSQs:1000,1200,2000,2200,7000,7700,7600,7500
+m_AutoCorrelateDisabledSQs:1200,2000,2200,7000,7700,7600,7500
 m_DontAutoCorrelateDuplicated:0
 m_AcceptPilotSquawkForCorrelation:0
 m_MTCA_Floor:0
@@ -131,3 +131,5 @@ m_StartupTime:10
 m_ConnectTime:15
 m_AutoAssumeOnGroundStateChangeButton:0
 m_ShowTrackMilesInRouteButton:0
+m_FilterOutSquawks:
+m_EquipmentsIcaoFormat:1
