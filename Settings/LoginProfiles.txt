@@ -16,7 +16,7 @@ ATIS2:RTC Malmö AOR
 ATIS3:Remote TWR Services at airports not covered by local TWR.
 ATIS4:Check coverage at vatglasses.uk
 PROFILE:ESMM_2_CTR:250:6
-ATIS2:Sweden Control CPDLC ESMM
+ATIS2:Sweden Control CPDLC ESM2
 ATIS3:Check coverage at vatglasses.uk
 ATIS4:Initial climb clearance 5000 ft at ESGG unless otherwise instructed.
 PROFILE:ESMM_3_CTR:250:6
@@ -68,7 +68,7 @@ ATIS2:Sweden Control
 ATIS3:
 ATIS4:
 PROFILE:ESOS_1_CTR:250:6
-ATIS2:Sweden Control CPDLC ESOS
+ATIS2:Sweden Control CPDLC ESO1
 ATIS3:Check coverage at vatglasses.uk
 ATIS4:
 PROFILE:ESOS_2_CTR:250:6
