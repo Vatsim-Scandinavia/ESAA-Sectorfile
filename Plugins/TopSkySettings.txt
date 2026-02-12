@@ -164,7 +164,6 @@ System_MagModel_Year=2024
 System_TaxiTime=10
 System_TransferConfirmation=2
 System_TrueColorMode=1
-System_UseILScat=1
 System_UseReportedGS=0
 System_MaxMinSepTime=240
 
