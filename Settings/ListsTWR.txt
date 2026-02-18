@@ -205,7 +205,7 @@ m_Column:CLR:4:0:10128:155:125:1:TopSky plugin:TopSky plugin:TopSky plugin:1:0.0
 m_Column:RMK:6:0:10059:2:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:EOBT:5:1:10018:100:0:1:TopSky plugin:CDM Plugin::0:0.0
 m_Column:ECTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
-m_Column:CTOT:5:1:10:108:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:CTOT:5:1:10:108:137:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:NET:5:0:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 END
 TAXIOUT

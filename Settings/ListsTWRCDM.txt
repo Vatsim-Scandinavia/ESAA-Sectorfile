@@ -196,15 +196,15 @@ m_Column:ADES:5:1:10008:7:0:1:TopSky plugin:::1:0.0
 m_Column:DRWY:5:0:10050:19:0:1:TopSky plugin:::1:0.0
 m_Column:RTE/AHD:11:0:54:17:96:1:TopSky plugin::TopSky plugin:1:0.0
 m_Column: CFL:4:0:10049:12:0:1:TopSky plugin:TopSky plugin::1:0.0
-m_Column: XFL:5:0:10053:105:0:1:TopSky plugin:TopSky plugin::0:0.0
-m_Column:COPX:6:0:10052:45:99:1:TopSky plugin:TopSky plugin:TopSky plugin:0:0.0
+m_Column: XFL:5:0:10053:105:0:0:TopSky plugin:TopSky plugin::0:0.0
+m_Column:COPX:6:0:10052:45:99:0:TopSky plugin:TopSky plugin:TopSky plugin:0:0.0
 m_Column:ASSR:5:0:10042:62:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:CLR:4:0:10128:155:125:1:TopSky plugin:TopSky plugin:TopSky plugin:1:0.0
 m_Column:RMK:6:0:10059:2:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:EOBT:5:1:10018:100:117:1:TopSky plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:VCTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
 m_Column:ECTOT:5:1:15:130:129:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:CTOT:5:1:10:108:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:CTOT:5:1:10:108:137:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:NET:5:0:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:TOBT:4:1:4:121:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column::1:0:145:0:123:1:CDM Plugin::CDM Plugin:0:0.0
