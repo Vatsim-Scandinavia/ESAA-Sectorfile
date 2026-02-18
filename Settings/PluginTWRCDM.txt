@@ -206,4 +206,7 @@ VCH:vch_c_rqt:240225041
 VCH:vch_c_rqp:240225041
 VCH:vch_blink:0
 VCH:vch_rqd:0
+CDM Plugin:CDMWindowPositionX:603
+CDM Plugin:CDMWindowPositionY:48
+CDM Plugin:CDMMinimized:0
 END
