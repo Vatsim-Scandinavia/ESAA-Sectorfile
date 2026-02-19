@@ -1,3 +1,4 @@
+//VERSION:260219
 // R and D areas have 2 blank spaces before the area name in order to be sorted to the top of the AMS window list.
 // PCA areas have 1 blank space before the area name in order to be sorted after R and D areas but before FS areas.
 
