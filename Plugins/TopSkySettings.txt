@@ -180,6 +180,15 @@ TCT_AHDG_Reaction_Time=25
 TCT_AHDG_Max_Time=45
 TCT_Track_Tolerance=2
 
+TCT_BS_Min_VS_Climb=600,100
+TCT_BS_Min_VS_Descent=600,100
+TCT_BS_Max_VS_Climb=2500,8000
+TCT_BS_Max_VS_Descent=2500,8000
+TCT_BS_VS_Climb_Threshold=800,8000
+TCT_BS_VS_Descent_Threshold=800,8000
+TCT_BS_Min_VS_Ratio=0.66,1
+TCT_BS_Max_VS_Ratio=0.66,1
+
 Vector_MinSep_Diverging_Time=120
 Vector_MinSep_VertSep_Ext_Time=1
 Vector_MinSep_VertSep_Ext_Time_Div=1
