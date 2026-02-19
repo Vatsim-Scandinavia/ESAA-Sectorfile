@@ -165,6 +165,8 @@ System_TrueColorMode=1
 System_UseReportedGS=0
 System_MaxMinSepTime=240
 
+TCT_Floor=1700
+
 Vector_MinSep_Diverging_Time=120
 Vector_MinSep_VertSep_Ext_Time=1
 Vector_MinSep_VertSep_Ext_Time_Div=1
