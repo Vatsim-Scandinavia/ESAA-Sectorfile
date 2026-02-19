@@ -21,6 +21,9 @@ APW_Buffer_Vert_L_IFR=200
 APW_Buffer_Vert_L_VFR=0
 APW_Buffer_Vert_U=800
 
+Areas_URL=https://github.com/Vatsim-Scandinavia/ESAA-Sectorfile/raw/refs/heads/main/OTHER/TopSkyAreas.txt
+Maps_URL=https://github.com/Vatsim-Scandinavia/ESAA-Sectorfile/raw/refs/heads/main/OTHER/TopSkyMaps.txt
+
 Areas_AUP_Activation=1
 Areas_AUP_UserText=
 Areas_PreActiveTime=900
