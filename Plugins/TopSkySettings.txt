@@ -139,6 +139,8 @@ Shortcut_Map_Xfr_Key=5,0x4D
 Shortcut_Map_Target=5,AMA/MVA\AMA/MVA
 Shortcut_Map_Xfr_Key=6,0x42
 Shortcut_Map_Target=6,NAVIGATION\VFR + L
+Shortcut_Map_Xfr_Key=6,0x53
+Shortcut_Map_Target=6,FREQ\SECTORS
 
 STCA_AlertSound=1
 STCA_AlertSound_Filter=2
