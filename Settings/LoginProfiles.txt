@@ -418,31 +418,31 @@ ATIS4:
 PROFILE:ESSA_W_TWR:50:4
 ATIS2:Arlanda Tower
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_E_TWR:50:4
 ATIS2:Arlanda Tower
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_S_TWR:50:4
 ATIS2:Arlanda Tower
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_E_GND:20:3
 ATIS2:Arlanda Ground
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_N_GND:20:3
 ATIS2:Arlanda Ground
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_W_GND:20:3
 ATIS2:Arlanda Ground
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSA_DEL:20:2
 ATIS2:Arlanda Clearance Delivery
 ATIS3:DCL Available
-ATIS4:
+ATIS4:CDM in use - see vats.im/vdgs
 PROFILE:ESSB_TWR:50:4
 ATIS2:Bromma Tower
 ATIS3:Covering Bromma CTR.
