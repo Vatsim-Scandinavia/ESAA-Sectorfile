@@ -49,10 +49,12 @@ Divergence_RAM_Limit=3
 Divergence_RAM_DCT_MaxTrkError=10
 
 Equip_Assume_All_SSRs_Mode_S=1
-Equip_UseCodes=0
+Equip_UseCodes=3
 Equip_Use_SUR_Mode_S=0
 Equip_Use_SUR_Mode_S_EHS=0
 Equip_Use_SUR_Mode_S_FLTID=0
+Equip_Use_NAV_W=0
+Equip_Use_NAV_Y=0
 
 FPCP_4D_PathBuffer_Climb_Max=6000
 FPCP_4D_PathBuffer_Descent_Max=6000
