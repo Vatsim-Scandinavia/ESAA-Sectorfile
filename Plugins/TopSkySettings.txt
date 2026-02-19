@@ -173,6 +173,12 @@ System_UseReportedGS=0
 System_MaxMinSepTime=240
 
 TCT_Floor=1700
+TCT_Min_State_Source=3
+TCT_ConflictCount=5
+TCT_Time_Imminent=1
+TCT_AHDG_Reaction_Time=25
+TCT_AHDG_Max_Time=45
+TCT_Track_Tolerance=2
 
 Vector_MinSep_Diverging_Time=120
 Vector_MinSep_VertSep_Ext_Time=1
