@@ -11,7 +11,6 @@ AMAN_Airports=ESSA,ESSB,EKCH
 AMAN_MinState=1
 AMAN_URL=http://skytry.xyz/max
 
-APW=0
 APW_Filter=0
 APW_Uncontrolled=2
 APW_UseCFL=0
@@ -100,7 +99,6 @@ RDF_Floor=0
 RwyAppLines_Auto=1
 RwyAppLines_Ext_Length=25
 
-SAP=0
 SAP_AHDG=0
 SAP_PreActive=0
 SAP_Risks=0
@@ -164,7 +162,6 @@ System_MagModel_Year=2024
 System_TaxiTime=10
 System_TransferConfirmation=2
 System_TrueColorMode=1
-System_UseILScat=1
 System_UseReportedGS=0
 System_MaxMinSepTime=240
 
