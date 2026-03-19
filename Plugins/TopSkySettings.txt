@@ -91,8 +91,8 @@ Menu_Level_MaxValue_10=510
 MSAW_AppInhibit=1
 MSAW_UseCFL=0
 MSAW_VFR=0
-MTCD_Filter_Dep=2
-MTCD_DeAcknowledge=2
+MTCD_DeAcknowledge=3
+MTCD_Floor=1700
 MTCD_PLC_Time=25
 MTCD_PPC_Time_Filter=15
 MTCD_Sep_Lat=10
@@ -233,6 +233,7 @@ Label_WTC_Highlight_WTC=LHJ
 Setup_LoadMap=NAVIGATION\VFR
 Setup_LoadMap=TEXT INFO\TMA ALTITUDES
 Window_ASM=1,100,400,640,317
+Window_CARD_View_MTCD_Ind=0
 Window_UpperWinds=3,498,400
 [_DEP]
 Divergence_RAM=0
@@ -241,6 +242,7 @@ Label_WTC_Highlight_WTC=LHJ
 Setup_LoadMap=NAVIGATION\VFR
 Setup_LoadMap=TEXT INFO\TMA ALTITUDES
 Window_ASM=1,100,400,640,317
+Window_CARD_View_MTCD_Ind=0
 Window_UpperWinds=3,498,400
 [_TWR]
 Divergence_RAM=0
@@ -250,6 +252,7 @@ Label_WTC_Highlight_WTC=LHJ
 Setup_LoadMap=NAVIGATION\VFR
 Setup_LoadMap=TEXT INFO\TMA ALTITUDES
 Window_ASM=1,100,400,640,317
+Window_CARD_View_MTCD_Ind=0
 Window_UpperWinds=3,498,400
 [_GND]
 Label_AHDG_ShowExtra=1
@@ -445,6 +448,7 @@ List_TfcMgmt1_Via=ERNOV,TIDVU
 List_TfcMgmt2_ADES=ESMS
 List_ETWR_ADEP=ESMS,EKCH
 Setup_ScreenLat=56.3
+Window_CARD_View_MTCD_Ind=0
 {MW}
 List_TfcMgmt1_ADES=ESSA
 List_TfcMgmt1_Via=NILUG
