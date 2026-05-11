@@ -220,6 +220,27 @@ WXR_Longitude_Min=8
 
 Label_WTC_Highlight_ATYP=B752,B753,T204
 
+{EAG}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
+{GRI}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
+{COB}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
 [_CTR]
 Label_WTC_Highlight_WTC=J
 Label_WTC_Highlight_ATYP=B752,B753,T204,A124,A225,B748,A345,A346,B778,B779,C5,C5M
