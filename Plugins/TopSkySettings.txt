@@ -254,7 +254,6 @@ Divergence_RAM=0
 Track_PredictionLine=1
 Label_WTC_Highlight_WTC=LHJ
 Label_ATYP_Default=1110
-Label_ADES_Default=1000
 Label_DIAS_Unsel_Default=1110
 Label_DMACH_Sel_Default=0000
 Setup_LoadMap=NAVIGATION\VFR
