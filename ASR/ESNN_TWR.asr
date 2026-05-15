@@ -3,14 +3,6 @@ DisplayTypeNeedRadarContent:0
 DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
-Airports:EFKE:symbol
-Airports:EFMA:symbol
-Airports:EFRO:symbol
-Airports:EKCH:symbol
-Airports:EKRN:symbol
-Airports:ENGM:symbol
-Airports:ENRY:symbol
-Airports:ENTO:symbol
 Airports:ESCF:symbol
 Airports:ESCM:symbol
 Airports:ESDF:symbol
@@ -599,7 +591,7 @@ DISABLEPANNING:0
 DISABLEZOOMING:0
 DisplayRotation:0.00000
 TAGFAMILY:GRplugin
-WINDOWAREA:52.154562:-6.041406:72.796950:32.735025
+WINDOWAREA:59.140722:10.773958:65.904819:24.127989
+PLUGIN:Ground Radar plugin:HideMapData:GND
 PLUGIN:Ground Radar plugin:TowerMode:ESNN
 PLUGIN:TopSky plugin:NoDraw:1
-PLUGIN:Ground Radar plugin:HideMapData:GND
