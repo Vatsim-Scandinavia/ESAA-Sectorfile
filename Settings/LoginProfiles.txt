@@ -395,6 +395,10 @@ PROFILE:ESPE_TWR:50:4
 ATIS2:Vidsel Tower
 ATIS3:MIL channel A
 ATIS4:Check coverage at vatglasses.uk
+PROFILE:ESSA_FMP:150:5
+ATIS2:Stockholm Planner
+ATIS3:
+ATIS4:
 PROFILE:ESSA_E_APP:150:5
 ATIS2:Stockholm Approach CPDLC ESSE
 ATIS3:Check coverage at vatglasses.uk
