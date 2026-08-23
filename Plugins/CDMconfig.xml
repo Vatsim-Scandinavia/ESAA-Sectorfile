@@ -12,7 +12,7 @@
 	<readySetTsac mode="true" />
 	<Rates url=""/>
 	<Taxizones url=""/>
-	<Ctot url="https://raw.githubusercontent.com/Vatsim-Scandinavia/ESAA-Sectorfile/refs/heads/main/OTHER/ECTOT.txt"/>
+	<Slots url="https://raw.githubusercontent.com/Vatsim-Scandinavia/ESAA-Sectorfile/refs/heads/main/OTHER/EvSlot.txt"/>
 	<sidInterval url="" />
 	<DefaultTaxiTime minutes="15"/>
 	<DeIceTimes light="5" medium="9" heavy="12" super="15"/>
@@ -29,4 +29,10 @@
 	<sftpConnection mode="false" />
 	<Server mode="true"/>
 	<Su_Wait mode="false" />
+	<flashingMode tobtLastMin= "false" tsatFirstMin="false" tsatLastMin= "false"/>
+	<reqTobtPriority mode="true" />
+	<eventPriority mode="true" />
+	<autoSetTobtFromEvSlot mode="true" />
+	<remarksOptionCtot mode="false" />
+	<PrivateMessage text="[CDM MSG] PLEASE, MONITOR https://vats.im/vdgs FOR CDM AND ATFCM UPDATES. [END OF CDM MSG]" />
 </CDM>
