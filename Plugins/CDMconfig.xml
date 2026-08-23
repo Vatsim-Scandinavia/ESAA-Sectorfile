@@ -22,7 +22,6 @@
 	<Debug mode="false"/>
 	<FlowRestrictions url="" />
 	<vdgsFileType type="3" />
-	<viffSystem url="https://api.viffsys.com/" />
 	<ftpHost host=""/>
 	<ftpUser user=""/>
 	<ftpPassword password=""/>
