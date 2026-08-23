@@ -138,6 +138,11 @@ Label=GND:UNC:1:CALLSIGN,0,0
 Label=GND:UNC:2:ATYP,0,0:WTC,0,1
 Label=GND:UNC:3:REG,0,0:RMK,0,1
 Airport_Runway_End=19L:N059.38.57.347:E017.57.32.727
+Airport_Runway_End=25:N059.39.38.092:E017.58.30.998
+Airport_Runway_Area=07:30
+Airport_Runway_Area=25:30
+Airport_Runway_Buffer=07:50
+Airport_Runway_Buffer=25:50
 
 [ESSB]
 AppPath=ESSB:30:59.351356:17.950117:305.03:R:043:3.5:1.0:1.0
