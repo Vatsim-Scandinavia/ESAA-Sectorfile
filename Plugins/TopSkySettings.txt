@@ -57,7 +57,7 @@ Equip_Use_SUR_Mode_S_FLTID=0
 FPCP_4D_PathBuffer_Climb_Max=6000
 FPCP_4D_PathBuffer_Descent_Max=6000
 
-HTTP_AUP_URL=https://statsim.net/lfvuseplan/beta/.txt
+HTTP_AUP_URL=https://backend.vatiris.se/aup/aup.txt
 HTTP_GRIB_Latitude_Max=71
 HTTP_GRIB_Latitude_Min=53
 HTTP_GRIB_Longitude_Max=26
