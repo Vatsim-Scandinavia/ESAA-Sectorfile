@@ -209,4 +209,5 @@ VCH:vch_rqd:0
 CDM Plugin:CDMWindowPositionX:623
 CDM Plugin:CDMWindowPositionY:46
 CDM Plugin:CDMMinimized:1
+RDF Plugin for Euroscope:EnableDraw:0
 END
