@@ -17,7 +17,7 @@
 	<DefaultTaxiTime minutes="15"/>
 	<DeIceTimes light="5" medium="9" heavy="12" super="15"/>
 	<DeIceRemTaxi rem1Name= "T2" rem1="3"/>
-	<eventModeMin time="10" />
+	<eventModeMin time="5" />
 	<RefreshTime seconds="10"/>
 	<Debug mode="false"/>
 	<FlowRestrictions url="" />
@@ -28,10 +28,11 @@
 	<sftpConnection mode="false" />
 	<Server mode="true"/>
 	<Su_Wait mode="false" />
-	<flashingMode tobtLastMin= "false" tsatFirstMin="false" tsatLastMin= "false"/>
+	<flashingMode tobtLastMin= "false" tsatFirstMin="false" tsatLastMin= "true"/>
 	<reqTobtPriority mode="true" />
 	<eventPriority mode="true" />
 	<autoSetTobtFromEvSlot mode="true" />
 	<remarksOptionCtot mode="false" />
 	<PrivateMessage text="[CDM MSG] PLEASE, MONITOR https://vats.im/vdgs FOR CDM AND ATFCM UPDATES. [END OF CDM MSG]" />
+	<loading text="...." />			
 </CDM>
