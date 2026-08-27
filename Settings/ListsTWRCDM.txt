@@ -204,10 +204,10 @@ m_Column:CLR:4:0:10128:155:125:1:TopSky plugin:TopSky plugin:TopSky plugin:1:0.0
 m_Column:RMK:6:0:10059:2:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:EOBT:5:0:1:100:120:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:ECTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
-m_Column:SLOT:5:0:15:157:130:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:SLOT:5:0:15:157:130:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:CTOT:4:0:10:137:108:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column::3:0:27:158:161:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:NET:7:0:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:NET:4:1:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:FLOW:7:0:11:127:0:0:CDM Plugin:CDM Plugin::0:0.0
 m_Column:PM:3:1:30:153:0:1:CDM Plugin:CDM Plugin::0:0.0
 m_Column:TOBT:4:0:4:115:121:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
