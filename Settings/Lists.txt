@@ -48,14 +48,14 @@ m_Column:No:3:1:10040:0:0:0:TopSky plugin:::1:0.0
 m_Column:ATYP:5:0:10028:24:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:W:2:1:10032:104:0:1:TopSky plugin:TopSky plugin::1:0.0
 m_Column:R:2:1:10031:0:0:1:TopSky plugin:::1:0.0
-m_Column:TIME:5:1:22:154:0:1:CDM Plugin:CDM Plugin::1:0.0
+m_Column:TIME:5:1:22:154:123:1:CDM Plugin:CDM Plugin:CDM Plugin:1:0.0
 m_Column:ECTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
 m_Column:SLOT:5:0:15:157:130:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:CTOT:5:1:10:108:137:1:CDM Plugin:CDM Plugin:CDM Plugin:1:0.0
 m_Column::3:0:27:158:161:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:NET:7:0:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:FLOW:7:0:11:127:0:0:CDM Plugin:CDM Plugin::0:0.0
-m_Column:PM:2:1:30:153:0:0:CDM Plugin:CDM Plugin::0:0.0
+m_Column:FLOW:7:0:11:127:123:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:PM:2:1:30:153:123:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column: CFL:4:0:10049:12:110:1:TopSky plugin:TopSky plugin:TopSky plugin:1:0.0
 m_Column: XFL:5:0:10053:105:110:1:TopSky plugin:TopSky plugin:TopSky plugin:0:0.0
 m_Column:COPX:6:0:10052:45:141:1:TopSky plugin:TopSky plugin:TopSky plugin:1:0.0
@@ -144,25 +144,26 @@ m_Column: C/S:10:0:10021:0:0:1:TopSky plugin:::0:0.0
 END
 STUP
 m_Visible:0
-m_X:953
+m_X:1039
 m_Y:378
 m_LineNumber:6
 m_Resizable:1
 m_OrderingColumn:1
 m_HeaderOnly:0
 m_Column: C/S:10:0:10021:0:0:1:TopSky plugin:::1:0.0
-m_Column:EOBT:5:1:10018:120:123:1:TopSky plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:VCTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
-m_Column:ECTOT:5:1:15:130:129:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:CTOT:5:1:10:108:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:EOBT:5:1:1:100:117:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:ECTOT:5:1:5001:0:0:0:VATCAN Bookings:::0:0.0
+m_Column:SLOT:5:0:15:157:130:0:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:CTOT:5:1:10:137:108:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:DIF:3:1:27:158:161:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:NET:3:1:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 m_Column:FLOW:7:0:11:127:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:NET:5:0:18:137:127:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:PM:2:1:30:153:0:1:CDM Plugin:CDM Plugin::0:0.0
-m_Column:TOBT:4:1:4:121:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column::1:0:145:0:123:1:CDM Plugin::CDM Plugin:0:0.0
-m_Column:TSAT:5:1:2:0:123:1:CDM Plugin::CDM Plugin:0:0.0
-m_Column::1:0:14:103:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
-m_Column:RS:2:0:12:106:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:PM:3:1:30:153:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:TOBT:4:0:4:115:121:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column::2:0:29:0:123:1:CDM Plugin::CDM Plugin:0:0.0
+m_Column:TSAT:5:1:2:103:128:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column::2:0:14:103:122:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
+m_Column:RS:2:0:12:155:123:1:CDM Plugin:CDM Plugin:CDM Plugin:0:0.0
 END
 TAXIOUT
 m_Visible:0
