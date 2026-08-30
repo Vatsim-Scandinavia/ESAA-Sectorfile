@@ -7,7 +7,7 @@
 	<bmi mode="false" />
 	<pilotTobt mode="true" />
 	<autoAtot mode="true" />
-	<invalidateAtTsat mode="true"/>
+	<invalidateAtTsat mode="false"/>
 	<invalidateAtTobt mode="false" />
 	<readySetTsac mode="true" />
 	<Rates url=""/>
