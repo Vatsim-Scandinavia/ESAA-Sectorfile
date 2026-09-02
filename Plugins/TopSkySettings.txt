@@ -160,7 +160,6 @@ System_Coord_Sound_RTI_ACP=1
 System_Coord_Sound_TIP_ACP=1
 System_FindTrack_Time=15
 System_FPASD=0
-System_GUI_Scale_Cursors=0.9
 System_GUI_Scale_GlobalMenu=1.1
 System_GUI_Scale_Menus=1.1
 System_GUI_Scale_Tracks=1.1
