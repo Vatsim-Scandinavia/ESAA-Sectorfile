@@ -98,9 +98,9 @@ MTCD_Floor=1700
 MTCD_PLC_Time=25
 MTCD_PPC_Time_Filter=15
 MTCD_Sep_Lat=10
-RDF_Accuracy=2
-RDF_Mode=2
-RDF_Floor=0
+//RDF_Accuracy=2
+RDF_Mode=-1
+//RDF_Floor=0
 RwyAppLines_Auto=1
 RwyAppLines_Ext_Length=25
 
