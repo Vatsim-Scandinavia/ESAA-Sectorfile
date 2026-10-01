@@ -33,6 +33,7 @@
 	<eventPriority mode="true" />
 	<autoSetTobtFromEvSlot mode="true" />
 	<remarksOptionCtot mode="false" />
-	<PrivateMessage text="[CDM MSG] PLEASE, MONITOR https://vats.im/vdgs FOR CDM AND ATFCM UPDATES. [END OF CDM MSG]" />
+	<PrivateMessage text="[FLOW MSG] VERIFY E/TOBT AND MONITOR https://vats.im/vdgs FOR UPDATES. [END OF MSG]" />
+	<disableTobtReqAfterAsrt mode="true" />
 	<loading text="...." />			
 </CDM>
