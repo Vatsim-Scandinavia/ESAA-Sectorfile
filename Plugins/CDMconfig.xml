@@ -35,5 +35,6 @@
 	<remarksOptionCtot mode="false" />
 	<PrivateMessage text="[FLOW MSG] VERIFY E/TOBT AND MONITOR https://vats.im/vdgs FOR UPDATES. [END OF MSG]" />
 	<disableTobtReqAfterAsrt mode="true" />
-	<loading text="...." />			
+	<loading text="...." />
+	<nonCdmEarlyClearenceColor minutes="0" />
 </CDM>
