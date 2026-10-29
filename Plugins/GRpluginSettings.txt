@@ -3,6 +3,7 @@ GroundLabel_Filter_NoState=1
 GroundLabel_Filter_OnFreq=1
 GroundLabel_Filter_Parked=1
 RawVideo_MaxHistory=0
+System_AutoAssignDist=30
 System_State_OnFreq=FRQ
 System_State_DeIce=RDY
 System_State_StartUp=S/U
