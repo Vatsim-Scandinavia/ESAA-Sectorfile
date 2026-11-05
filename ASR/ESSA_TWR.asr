@@ -3,10 +3,8 @@ DisplayTypeNeedRadarContent:0
 DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
-ARTCC low boundary:ESSA CTR:
-ARTCC low boundary:ESSB CTR:
-Geo:ESSA Tower CTR:
 Regions:ESSA TWR:polygon
+
 SHOWC:0
 SHOWSB:0
 BELOW:0
