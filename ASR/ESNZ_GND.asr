@@ -6,7 +6,6 @@ SECTORTITLE:
 Free Text:ESNZ RWY\12:freetext
 Free Text:ESNZ RWY\30:freetext
 Free Text:ESNZ RWY\FATO A:freetext
-Free Text:ESNZ RWY\FATO F:freetext
 Free Text:ESNZ STAND\1E:freetext
 Free Text:ESNZ STAND\1W:freetext
 Free Text:ESNZ STAND\2E:freetext
@@ -17,17 +16,23 @@ Free Text:ESNZ STAND\4E:freetext
 Free Text:ESNZ STAND\4W:freetext
 Free Text:ESNZ STAND\A:freetext
 Free Text:ESNZ STAND\APN East:freetext
+Free Text:ESNZ STAND\APN Mid:freetext
 Free Text:ESNZ STAND\APN North:freetext
+Free Text:ESNZ STAND\APN West:freetext
+Free Text:ESNZ STAND\APN West:freetext
 Free Text:ESNZ STAND\B:freetext
 Free Text:ESNZ STAND\C:freetext
 Free Text:ESNZ STAND\E2:freetext
 Free Text:ESNZ STAND\E3:freetext
 Free Text:ESNZ STAND\E4:freetext
+Free Text:ESNZ STAND\M1:freetext
+Free Text:ESNZ STAND\M2:freetext
+Free Text:ESNZ STAND\M3:freetext
 Free Text:ESNZ STAND\Terminal:freetext
+Free Text:ESNZ STAND\W1:freetext
+Free Text:ESNZ STAND\W2:freetext
 Free Text:ESNZ STAND\Y:freetext
 Free Text:ESNZ STAND\Z:freetext
-Free Text:ESNZ STAND\POL:freetext
-Free Text:ESNZ STAND\APN West:freetext
 Free Text:ESNZ TAXIWAY\A:freetext
 Free Text:ESNZ TAXIWAY\B:freetext
 Free Text:ESNZ TAXIWAY\F:freetext

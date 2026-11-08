@@ -17,20 +17,24 @@ Free Text:ESPA MIL\MIL APN 8:freetext
 Free Text:ESPA MIL\MIL APN 85:freetext
 Free Text:ESPA RWY\14:freetext
 Free Text:ESPA RWY\32:freetext
+Free Text:ESPA STAND\1:freetext
+Free Text:ESPA STAND\101:freetext
+Free Text:ESPA STAND\102:freetext
+Free Text:ESPA STAND\103:freetext
+Free Text:ESPA STAND\104:freetext
 Free Text:ESPA STAND\111:freetext
 Free Text:ESPA STAND\112:freetext
-Free Text:ESPA STAND\20:freetext
-Free Text:ESPA STAND\21:freetext
-Free Text:ESPA STAND\22A/B:freetext
+Free Text:ESPA STAND\2:freetext
 Free Text:ESPA STAND\3:freetext
 Free Text:ESPA STAND\4:freetext
 Free Text:ESPA STAND\5:freetext
-Free Text:ESPA STAND\7A/B:freetext
-Free Text:ESPA STAND\8:freetext
+Free Text:ESPA STAND\6:freetext
+Free Text:ESPA STAND\7:freetext
 Free Text:ESPA STAND\Aeroclub:freetext
 Free Text:ESPA STAND\APN 10:freetext
 Free Text:ESPA STAND\APN 11:freetext
-Free Text:ESPA STAND\Deice 12B/A:freetext
+Free Text:ESPA STAND\Deice 8:freetext
+Free Text:ESPA STAND\Deice 9:freetext
 Free Text:ESPA STAND\Fuel:freetext
 Free Text:ESPA STAND\Terminal:freetext
 Free Text:ESPA TAXIWAY\A:freetext

@@ -99,7 +99,6 @@ Fixes:ABAMA:symbol
 Fixes:ABAXI:symbol
 Fixes:ABEGI:symbol
 Fixes:ABVUR:symbol
-Fixes:ADKAT:symbol
 Fixes:ADOVI:symbol
 Fixes:ADVIS:symbol
 Fixes:ADVOP:symbol
@@ -141,7 +140,6 @@ Fixes:BATOV:symbol
 Fixes:BEDLA:symbol
 Fixes:BEDOS:symbol
 Fixes:BEGDO:symbol
-Fixes:BEKAP:symbol
 Fixes:BELFE:symbol
 Fixes:BENGI:symbol
 Fixes:BENKA:symbol
@@ -427,6 +425,7 @@ Fixes:MK840:symbol
 Fixes:MOGLU:symbol
 Fixes:MOKMO:symbol
 Fixes:MOKNI:symbol
+Fixes:MOQAQ:symbol
 Fixes:MORBY:symbol
 Fixes:MOSAT:symbol
 Fixes:MOSIN:symbol
@@ -487,7 +486,6 @@ Fixes:NG853:symbol
 Fixes:NG854:symbol
 Fixes:NG855:symbol
 Fixes:NIBNO:symbol
-Fixes:NIDPO:symbol
 Fixes:NIKEG:symbol
 Fixes:NILEN:symbol
 Fixes:NILUG:symbol
@@ -572,8 +570,6 @@ Fixes:ODARU:symbol
 Fixes:ODHAF:symbol
 Fixes:ODIBI:symbol
 Fixes:ODJAX:symbol
-Fixes:ODMEI:symbol
-Fixes:ODSIM:symbol
 Fixes:OE405:symbol
 Fixes:OE410:symbol
 Fixes:OE415:symbol
@@ -582,12 +578,16 @@ Fixes:OE710:symbol
 Fixes:OE715:symbol
 Fixes:OE725:symbol
 Fixes:OE855:symbol
-Fixes:OGELO:symbol
 Fixes:OGIRO:symbol
 Fixes:OGLAV:symbol
 Fixes:OGLOB:symbol
 Fixes:OGRIN:symbol
-Fixes:OH550:symbol
+Fixes:OH501:symbol
+Fixes:OH554:symbol
+Fixes:OH556:symbol
+Fixes:OH801:symbol
+Fixes:OH852:symbol
+Fixes:OH853:symbol
 Fixes:OK521:symbol
 Fixes:OK522:symbol
 Fixes:OK523:symbol
@@ -821,7 +821,6 @@ Fixes:XILAN:symbol
 Fixes:XIRTO:symbol
 Fixes:XONTU:symbol
 Fixes:XOTBU:symbol
-Fixes:XUMBI:symbol
 Fixes:ZIPCO:symbol
 Geo:ESAA ACC LOW LEVEL:
 Geo:ESAA Landmark COAST:

@@ -57,7 +57,7 @@ Equip_Use_SUR_Mode_S_FLTID=0
 FPCP_4D_PathBuffer_Climb_Max=6000
 FPCP_4D_PathBuffer_Descent_Max=6000
 
-HTTP_AUP_URL=https://statsim.net/lfvuseplan/beta/.txt
+HTTP_AUP_URL=https://backend.vatiris.se/aup/aup.txt
 HTTP_GRIB_Latitude_Max=71
 HTTP_GRIB_Latitude_Min=53
 HTTP_GRIB_Longitude_Max=26
@@ -160,7 +160,9 @@ System_Coord_Sound_RTI_ACP=1
 System_Coord_Sound_TIP_ACP=1
 System_FindTrack_Time=15
 System_FPASD=0
-System_GUI_Scale_Cursors=0.9
+System_GUI_Font_Fixed_1=TopSky
+System_GUI_Font_Fixed_1_Size=10
+System_GUI_Font_Fixed_3=TopSky
 System_GUI_Scale_GlobalMenu=1.1
 System_GUI_Scale_Menus=1.1
 System_GUI_Scale_Tracks=1.1
@@ -220,6 +222,27 @@ WXR_Longitude_Min=8
 
 Label_WTC_Highlight_ATYP=B752,B753,T204
 
+{EAG}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
+{GRI}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
+{COB}
+Divergence_RAM=0
+MSAW=0
+MTCD=0
+STCA=0
+TCT=0
+
 [_CTR]
 Label_WTC_Highlight_WTC=J
 Label_WTC_Highlight_ATYP=B752,B753,T204,A124,A225,B748,A345,A346,B778,B779,C5,C5M
@@ -233,7 +256,6 @@ Divergence_RAM=0
 Track_PredictionLine=1
 Label_WTC_Highlight_WTC=LHJ
 Label_ATYP_Default=1110
-Label_ADES_Default=1000
 Label_DIAS_Unsel_Default=1110
 Label_DMACH_Sel_Default=0000
 Setup_LoadMap=NAVIGATION\VFR
