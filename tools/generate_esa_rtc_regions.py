@@ -22,9 +22,13 @@ BACKUP_PATH = SCT_PATH.with_name(SCT_PATH.stem + " - RTC_pre_regen.bak.sct")
 MIN_LON, MIN_LAT, MAX_LON, MAX_LAT = 7.0, 54.0, 25.0, 72.0
 BBOX = box(MIN_LON, MIN_LAT, MAX_LON, MAX_LAT)
 
-# Closest existing SCT colours to the reference screenshot.
-COLOR_WATER = "COLOR_Landmark7"  # RGB(31,65,203)
-COLOR_LAND = "COLOR_Landmark6"  # RGB(73,168,69)
+# RTC colours (EuroScope: R + G*256 + B*65536).
+# Land: 62.5% toward warmed green/yellow from raw mix → RGB(44,151,85)
+# Water: mix of #0000d4/#1f4794/#4b2bc9 → RGB(35,38,187)
+COLOR_WATER = "COLOR_Terrain7"
+COLOR_WATER_RGB = (35, 38, 187)
+COLOR_LAND = "COLOR_Terrain2"
+COLOR_LAND_RGB = (44, 151, 85)
 REGION_NAME = "ESAA RTC"
 
 # Seeds used only for exclusive face classification (land XOR water).
@@ -363,6 +367,47 @@ def strip_custom_rtc_color_defines(text: list[str]) -> list[str]:
     return out
 
 
+def es_color_int(rgb: tuple[int, int, int]) -> int:
+    r, g, b = rgb
+    return r + (g << 8) + (b << 16)
+
+
+def ensure_color_define(text: list[str], name: str, rgb: tuple[int, int, int]) -> list[str]:
+    """Set or insert a #define COLOR_* value."""
+    value = es_color_int(rgb)
+    line = f"#define {name}  {value}"
+    prefix = f"#define {name}"
+    out: list[str] = []
+    found = False
+    for l in text:
+        if l.strip().startswith(prefix):
+            out.append(line)
+            found = True
+        else:
+            out.append(l)
+    if not found:
+        insert_at = None
+        for i, l in enumerate(out):
+            if l.strip().startswith("#define COLOR_Terrain"):
+                insert_at = i + 1
+        if insert_at is None:
+            for i, l in enumerate(out):
+                if l.strip().startswith("#define COLOR_"):
+                    insert_at = i + 1
+                    break
+        if insert_at is None:
+            insert_at = 0
+        out.insert(insert_at, line)
+    print(f"{name} = {value} RGB{rgb}")
+    return out
+
+
+def ensure_rtc_color_defines(text: list[str]) -> list[str]:
+    text = ensure_color_define(text, COLOR_LAND, COLOR_LAND_RGB)
+    text = ensure_color_define(text, COLOR_WATER, COLOR_WATER_RGB)
+    return text
+
+
 def find_rtc_span(text: list[str]) -> tuple[int, int]:
     regions_idx = None
     for i, line in enumerate(text):
@@ -397,6 +442,7 @@ def main() -> None:
     raw = SCT_PATH.read_bytes()
     text = raw.decode("latin-1", errors="replace").splitlines()
     text = strip_custom_rtc_color_defines(text)
+    text = ensure_rtc_color_defines(text)
 
     print("Extracting landmark segments...")
     spans = find_landmark_spans(text)

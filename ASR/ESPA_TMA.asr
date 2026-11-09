@@ -4,6 +4,7 @@ DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
 
+Regions:ESAA RTC:polygon
 SHOWC:0
 SHOWSB:0
 BELOW:0
@@ -16,8 +17,8 @@ SIMULATION_MODE:1
 DISABLEPANNING:0
 DISABLEZOOMING:0
 DisplayRotation:0.00000
-TAGFAMILY:GRplugin
+TAGFAMILY:Matias (built in)
 WINDOWAREA:64.704250:20.635972:66.176861:23.340694
+PLUGIN:Ground Radar plugin:HideMapData:GND
 PLUGIN:Ground Radar plugin:TowerMode:ESPA
 PLUGIN:TopSky plugin:NoDraw:1
-PLUGIN:Ground Radar plugin:HideMapData:GND

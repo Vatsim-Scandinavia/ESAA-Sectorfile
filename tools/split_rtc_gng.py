@@ -32,8 +32,8 @@ def nbytes(ps):
 
 src = Path(__file__).with_name("ESAA_RTC_GNG.txt")
 polys = parse_polys(src.read_text(encoding="utf-8").splitlines())
-water = [p for p in polys if p[0] == "COLOR_Landmark7"]
-land = [p for p in polys if p[0] == "COLOR_Landmark6"]
+water = [p for p in polys if p[0] == "COLOR_Terrain7"]
+land = [p for p in polys if p[0] == "COLOR_Terrain2"]
 
 full = nbytes(polys)
 t1 = full // 3
@@ -60,8 +60,8 @@ parts = [rtc1, rtc2, rtc3]
 for i, part in enumerate(parts, 1):
     p = Path(__file__).with_name(f"ESAA_RTC{i}_GNG.txt")
     p.write_text(emit(part), encoding="utf-8")
-    w = sum(1 for c, _ in part if c == "COLOR_Landmark7")
-    l = sum(1 for c, _ in part if c == "COLOR_Landmark6")
+    w = sum(1 for c, _ in part if c == "COLOR_Terrain7")
+    l = sum(1 for c, _ in part if c == "COLOR_Terrain2")
     lines = sum(1 for _ in p.open(encoding="utf-8"))
     print(f"RTC{i}: {p.resolve()}")
     print(f"  polys={len(part)} water={w} land={l} bytes={p.stat().st_size} lines={lines}")
