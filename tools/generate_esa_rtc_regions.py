@@ -3,14 +3,15 @@ Generate ESAA RTC REGIONS from GEO landmarks COAST, ISLANDS, LAKES.
 
 Drawing order:
   1. Blue water fill tiled into 1° quads (COLOR_Landmark7) — avoids EuroScope zoom culling
-  2. Green mainland from COAST, clipped to the RTC rectangle (COLOR_Landmark6)
-  3. Green islands (COLOR_Landmark6)
+  2. Green mainland from COAST, clipped and tiled like water (COLOR_Landmark6)
+  3. Green islands, also tiled when large (COLOR_Landmark6)
   4. Blue lakes (COLOR_Landmark7)
 """
 
 from __future__ import annotations
 
 from pathlib import Path
+import math
 import re
 from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import linemerge, polygonize, unary_union, snap
@@ -65,9 +66,10 @@ WATER_SEEDS = [
 MIN_AREA_DEG2 = 1e-7
 SIMPLIFY_TOL = 0.0002  # ~20 m-ish in deg
 
-# EuroScope drops very large filled regions when zoomed in; tile the water
-# background so each polygon stays small enough to remain visible.
+# EuroScope drops very large filled regions when zoomed in; tile water and
+# land so each polygon stays small enough to remain visible (esp. north of ESPA).
 WATER_TILE_DEG = 1.0
+LAND_TILE_DEG = 1.0
 
 coord_re = re.compile(
     r"([NS])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})\s+([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})"
@@ -326,6 +328,27 @@ def water_background_tiles(
     return tiles
 
 
+def tile_polygon(poly: Polygon, tile_deg: float = LAND_TILE_DEG) -> list[Polygon]:
+    """Intersect a land/island polygon with the same lon/lat grid as water."""
+    minx, miny, maxx, maxy = poly.bounds
+    lon0 = MIN_LON + math.floor((minx - MIN_LON) / tile_deg) * tile_deg
+    lat0 = MIN_LAT + math.floor((miny - MIN_LAT) / tile_deg) * tile_deg
+    pieces: list[Polygon] = []
+    lon = lon0
+    while lon < maxx - 1e-12:
+        lon2 = lon + tile_deg
+        lat = lat0
+        while lat < maxy - 1e-12:
+            lat2 = lat + tile_deg
+            inter = poly.intersection(box(lon, lat, min(lon2, MAX_LON), min(lat2, MAX_LAT)))
+            for q in iter_polys(inter):
+                if q.area >= MIN_AREA_DEG2:
+                    pieces.append(q)
+            lat = lat2
+        lon = lon2
+    return pieces if pieces else [poly]
+
+
 def strip_custom_rtc_color_defines(text: list[str]) -> list[str]:
     """Remove obsolete COLOR_RTC_* defines if present."""
     out = [
@@ -401,15 +424,27 @@ def main() -> None:
     lake_polys = [simplify_poly(p) for p in lake_polygons(lake_lines)]
     print(f"  lake polys: {len(lake_polys)} area={sum(p.area for p in lake_polys):.3f}")
 
+    print(f"Tiling mainland into {LAND_TILE_DEG}° cells...")
+    land_tiles: list[Polygon] = []
+    for p in land_polys:
+        land_tiles.extend(tile_polygon(p))
+    print(f"  land tiles: {len(land_tiles)} (from {len(land_polys)} faces)")
+
+    print(f"Tiling islands into {LAND_TILE_DEG}° cells...")
+    island_tiles: list[Polygon] = []
+    for p in island_polys:
+        island_tiles.extend(tile_polygon(p))
+    print(f"  island tiles: {len(island_tiles)} (from {len(island_polys)} polys)")
+
     out_lines: list[str] = []
     water_tiles = water_background_tiles()
     print(f"Water background tiles: {len(water_tiles)} ({WATER_TILE_DEG}°)")
     for tile in water_tiles:
         out_lines.extend(emit_region(tile, COLOR_WATER))
-    for p in sorted(land_polys, key=lambda x: -x.area):
-        out_lines.extend(emit_region(exterior_coords(p), COLOR_LAND))
-    for p in sorted(island_polys, key=lambda x: -x.area):
-        out_lines.extend(emit_region(exterior_coords(p), COLOR_LAND))
+    for p in sorted(land_tiles, key=lambda x: -x.area):
+        out_lines.extend(emit_region(exterior_coords(simplify_poly(p)), COLOR_LAND))
+    for p in sorted(island_tiles, key=lambda x: -x.area):
+        out_lines.extend(emit_region(exterior_coords(simplify_poly(p)), COLOR_LAND))
     for p in sorted(lake_polys, key=lambda x: -x.area):
         out_lines.extend(emit_region(exterior_coords(p), COLOR_WATER))
 
