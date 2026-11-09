@@ -1,8 +1,8 @@
 DisplayTypeName:Standard ES radar screen
 DisplayTypeNeedRadarContent:1
 DisplayTypeGeoReferenced:1
-SECTORFILE:C:\Users\maxlk\AppData\Roaming\EuroScope\ESAA-Sweden_20260514195706-260501-0001.sct
-SECTORTITLE:ESAA-Sweden_20260514195706-260501-0001.sct
+SECTORFILE:
+SECTORTITLE:
 Airports:EFKE:symbol
 Airports:EFMA:symbol
 Airports:EFRO:symbol
