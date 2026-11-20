@@ -1,18 +1,29 @@
-"""Generate GRP RWY CENTERLINE maps (15 NM + 2/4/6/8/10 NM ticks) from AppPath data."""
+"""Generate GRP RWY CENTERLINE maps from AppPath data.
+
+Civil: 15 NM line, ticks at 2/4/6/8/10 NM.
+MIL (e.g. ESPA): 15 NM line, ticks every 1 NM to 6, then every 2 NM;
+                 6 NM and 10 NM ticks are slightly longer.
+"""
 
 from __future__ import annotations
 
 import math
-import re
 from pathlib import Path
 
 SETTINGS = Path(__file__).resolve().parents[1] / "Plugins" / "GRpluginSettings.txt"
 MAPS = Path(__file__).resolve().parents[1] / "Plugins" / "GRpluginMaps.txt"
 
 SKIP_AIRPORTS = {"ESSA"}
+MIL_AIRPORTS = {"ESPA", "ESIB"}  # dual-use / military AppPath airports
+
 LINE_NM = 15.0
-TICK_NMS = (2, 4, 6, 8, 10)
+CIVIL_TICK_NMS = (2, 4, 6, 8, 10)
+# 1..6 every NM, then every 2 NM out to the line end
+MIL_TICK_NMS = (1, 2, 3, 4, 5, 6, 8, 10, 12, 14)
+MIL_LONG_TICK_NMS = {6, 10}
+
 TICK_HALF_NM = 0.2
+TICK_HALF_NM_LONG = 0.3  # slightly longer for 6 / 10 NM
 EARTH_NM = 3440.065
 
 MARKER = "; --- AUTO RWY CENTERLINES START ---"
@@ -70,11 +81,19 @@ def parse_apppaths(text: str) -> list[tuple[str, str, float, float, float]]:
     return rows
 
 
+def tick_plan(icao: str) -> tuple[tuple[int, ...], set[int]]:
+    if icao in MIL_AIRPORTS:
+        return MIL_TICK_NMS, MIL_LONG_TICK_NMS
+    return CIVIL_TICK_NMS, set()
+
+
 def map_block(icao: str, rwy: str, lat: float, lon: float, inbound_true: float) -> str:
     ext = (inbound_true + 180.0) % 360.0
     end = dest(lat, lon, ext, LINE_NM)
+    tick_nms, long_nms = tick_plan(icao)
     lines = [
         f"MAP:CENTERLINE {icao} {rwy}:AT",
+        f"AIRPORT:{icao}",
         "FOLDER:RWY LINES",
         f"ACTIVE:RWY:ARR:{icao}{rwy}:DEP:*",
         "COLOR:LINE",
@@ -82,10 +101,11 @@ def map_block(icao: str, rwy: str, lat: float, lon: float, inbound_true: float) 
         "ASRDATA:TWR",
         f"LINE:{fmt_coord(lat, lon)}:{fmt_coord(*end)}",
     ]
-    for nm in TICK_NMS:
+    for nm in tick_nms:
+        half = TICK_HALF_NM_LONG if nm in long_nms else TICK_HALF_NM
         clat, clon = dest(lat, lon, ext, float(nm))
-        p1 = dest(clat, clon, (inbound_true + 90.0) % 360.0, TICK_HALF_NM)
-        p2 = dest(clat, clon, (inbound_true - 90.0) % 360.0, TICK_HALF_NM)
+        p1 = dest(clat, clon, (inbound_true + 90.0) % 360.0, half)
+        p2 = dest(clat, clon, (inbound_true - 90.0) % 360.0, half)
         lines.append(f"LINE:{fmt_coord(*p1)}:{fmt_coord(*p2)}")
     return "\n".join(lines) + "\n"
 
@@ -106,12 +126,10 @@ def upsert_maps(maps_text: str, generated: str) -> str:
         _, post = rest.split(MARKER_END, 1)
         return pre + block + post.lstrip("\n")
 
-    # Insert after existing ESSA CENTERLINE 26 map
     anchor = "MAP:CENTERLINE 26:AT"
     idx = maps_text.find(anchor)
     if idx < 0:
         return maps_text.rstrip() + "\n\n" + block
-    # find end of that map (next blank-line run before next MAP: or section)
     after = maps_text.find("\nMAP:", idx + 1)
     if after < 0:
         after = len(maps_text)
@@ -125,7 +143,9 @@ def main() -> None:
     keep = [r for r in rows if r[0] not in SKIP_AIRPORTS]
     print(f"Generating {len(keep)} centerlines (skipped {sorted(SKIP_AIRPORTS)})")
     for icao, rwy, _, _, hdg in keep:
-        print(f"  {icao} {rwy} hdg {hdg}")
+        kind = "MIL" if icao in MIL_AIRPORTS else "CIV"
+        ticks, long_t = tick_plan(icao)
+        print(f"  {icao} {rwy} [{kind}] hdg {hdg} ticks={ticks} long={sorted(long_t)}")
 
     maps = MAPS.read_text(encoding="utf-8", errors="replace")
     MAPS.write_text(upsert_maps(maps, generated), encoding="utf-8", newline="\n")
