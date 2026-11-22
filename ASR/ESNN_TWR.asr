@@ -556,7 +556,8 @@ Fixes:XONTU:symbol
 Fixes:XOTBU:symbol
 Fixes:ZIPCO:symbol
 Geo:ESAA ACC LOW LEVEL:
-Regions:ESAA RTC:polygon
+Regions:ESAA RTC1:polygon
+Regions:ESAA RTC2:polygon
 VORs:ARL:symbol
 VORs:ARS:symbol
 VORs:BOR:symbol

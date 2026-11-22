@@ -38,12 +38,37 @@ Shortcut_Map_Target=6,MAIN WINDOW\TAXIWAY
 Shortcut_Map_Xfr_Key=7,0x44
 Shortcut_Map_Target=7,MAIN WINDOW\DROP POINTS
 
+// Tower labels: same yellow for ARR, DEP, OTH and UNC. ESSA and ESGG keep separate colours.
+Color_Arrival=255,255,0
+Color_Departure=255,255,0
+Color_Unknown=255,255,0
+
+Label=TWR:ARR:0:A_FLAG,0,0:MALRT,0,0,1
+Label=TWR:ARR:1:CALLSIGN,0,0:COMM,0,0,1:ATYP,0,1
+Label=TWR:ARR:2:AFL+VS,0,0,2,0,0:GS,0,1,1,0
+Label=TWR:ARR:3:
+Label=TWR:DEP:0:A_FLAG,0,0:MALRT,0,0,1
+Label=TWR:DEP:1:CALLSIGN,0,0:COMM,0,0,1:ATYP,0,1
+Label=TWR:DEP:2:AFL+VS,0,0,2,0,0:GS,0,1,1,0
+Label=TWR:DEP:3:
+Label=TWR:OTH:0:A_FLAG,0,0:MALRT,0,0,1
+Label=TWR:OTH:1:CALLSIGN,0,0:COMM,0,0,1:ATYP,0,1
+Label=TWR:OTH:2:AFL+VS,0,0,2,0,0:GS,0,1,1,0
+Label=TWR:OTH:3:
+Label=TWR:UNC:0:A_FLAG,0,0:MALRT,0,0,1
+Label=TWR:UNC:1:CALLSIGN,0,0:COMM,0,0,1:ATYP,0,1
+Label=TWR:UNC:2:AFL+VS,0,0,2,0,0:GS,0,1,1,0
+Label=TWR:UNC:3:
+
 [ESCF]
 Airport_Runway_End=19:N058.24.29.979:E015.31.46.816
 Airport_Runway_NotATYP=08:SB32,SB35,SB37,SB39
 Airport_Runway_NotATYP=26:SB32,SB35,SB37,SB39
 
 [ESGG]
+Color_Arrival=255,255,64
+Color_Departure=64,255,255
+Color_Unknown=224,224,224
 AppPath=ESGG:21:57.673233:12.289259:206.00:L:506:3.5:1.0:1.0
 AppPath=ESGG:03:57.652271:12.270190:025.98:R:478:3.5:1.0:1.0
 List_Inbound=*,2
@@ -101,6 +126,8 @@ Airport_Runway_End=34:N062.31.07.648:E017.27.04.430
 
 [ESSA]
 Color_Arrival=255,255,0
+Color_Departure=64,255,255
+Color_Unknown=224,224,224
 Color_APP_Background=30,30,40
 Color_AppPath_Background=30,30,40
 Window_TSW_Rotation=1,14.0

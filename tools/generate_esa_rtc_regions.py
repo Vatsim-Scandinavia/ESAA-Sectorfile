@@ -1,11 +1,14 @@
 """
 Generate ESAA RTC REGIONS from GEO landmarks COAST, ISLANDS, LAKES.
 
+Output clip = ESAA FIR (TopSkyAreas) buffered ~50 NM, then simplified to a
+rough outline — replaces hard lon/lat cuts.
+
 Drawing order:
-  1. Blue water fill tiled into 1° quads (COLOR_Landmark7) — avoids EuroScope zoom culling
-  2. Green mainland from COAST, clipped and tiled like water (COLOR_Landmark6)
-  3. Green islands, also tiled when large (COLOR_Landmark6)
-  4. Blue lakes (COLOR_Landmark7)
+  1. Blue water fill tiled into 1° quads (COLOR_Terrain7)
+  2. Green mainland from COAST, clipped and tiled (COLOR_Terrain2)
+  3. Green islands, also tiled when large
+  4. Blue lakes
 """
 
 from __future__ import annotations
@@ -14,13 +17,100 @@ from pathlib import Path
 import math
 import re
 from shapely.geometry import LineString, Point, Polygon, box
-from shapely.ops import linemerge, polygonize, unary_union, snap
+from shapely.ops import linemerge, polygonize, unary_union, snap, transform
 
-SCT_PATH = Path(r"C:\Users\maxlk\AppData\Roaming\EuroScope\ESAA-Sweden_20261029211836-261101-0001.sct")
+SCT_PATH = Path(r"C:\Users\maxlk\AppData\Roaming\EuroScope\ESAA-Sweden_20261109173548-261101-0002.sct")
 BACKUP_PATH = SCT_PATH.with_name(SCT_PATH.stem + " - RTC_pre_regen.bak.sct")
+TOPSKY_PATH = Path(__file__).resolve().parents[1] / "OTHER" / "TopSkyAreas.txt"
 
-MIN_LON, MIN_LAT, MAX_LON, MAX_LAT = 7.0, 54.0, 25.0, 72.0
-BBOX = box(MIN_LON, MIN_LAT, MAX_LON, MAX_LAT)
+FIR_BUFFER_NM = 50.0
+FIR_SIMPLIFY_NM = 8.0  # rough outline after buffer
+
+tops_coord_re = re.compile(
+    r"([NS])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3}):([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})"
+)
+
+
+def _dms_to_deg(hemi: str, d: int, mi: int, s: int, f: int) -> float:
+    val = d + mi / 60 + (s + f / 1000) / 3600
+    if hemi in ("S", "W"):
+        val = -val
+    return val
+
+
+def parse_esa_fir_polygon(path: Path) -> Polygon:
+    """Read AREA:TCTA:ESAA FIR ring from TopSkyAreas.txt."""
+    lines = path.read_text(encoding="latin-1", errors="replace").splitlines()
+    coords: list[tuple[float, float]] = []
+    in_area = False
+    for line in lines:
+        s = line.strip()
+        if s.startswith("AREA:"):
+            if in_area:
+                break
+            if s == "AREA:TCTA:ESAA FIR":
+                in_area = True
+            continue
+        if not in_area:
+            continue
+        if (
+            not s
+            or s.startswith("//")
+            or s.startswith("LIMITS:")
+            or s.startswith("TCTA_")
+        ):
+            continue
+        m = tops_coord_re.fullmatch(s)
+        if not m:
+            continue
+        lat = _dms_to_deg(m.group(1), int(m.group(2)), int(m.group(3)), int(m.group(4)), int(m.group(5)))
+        lon = _dms_to_deg(m.group(6), int(m.group(7)), int(m.group(8)), int(m.group(9)), int(m.group(10)))
+        coords.append((lon, lat))
+    if len(coords) < 3:
+        raise RuntimeError(f"ESAA FIR polygon not found / too short in {path}")
+    if coords[0] != coords[-1]:
+        coords.append(coords[0])
+    poly = Polygon(coords)
+    if not poly.is_valid:
+        poly = poly.buffer(0)
+    polys = [poly] if poly.geom_type == "Polygon" else list(poly.geoms)
+    return max(polys, key=lambda p: p.area)
+
+
+def buffer_polygon_nm(poly: Polygon, nm: float, simplify_nm: float = 0.0) -> Polygon:
+    """Buffer in nautical miles using a local equirectangular NM projection."""
+    lat0 = poly.centroid.y
+    cos_lat = max(0.2, math.cos(math.radians(lat0)))
+
+    def to_nm(x, y, z=None):
+        return (x * 60.0 * cos_lat, y * 60.0)
+
+    def to_ll(x, y, z=None):
+        return (x / (60.0 * cos_lat), y / 60.0)
+
+    xy = transform(to_nm, poly)
+    buf = xy.buffer(nm)
+    if simplify_nm > 0:
+        buf = buf.simplify(simplify_nm, preserve_topology=True)
+    out = transform(to_ll, buf)
+    if out.geom_type == "Polygon":
+        return out
+    if out.geom_type == "MultiPolygon":
+        return max(out.geoms, key=lambda p: p.area)
+    raise RuntimeError(f"Unexpected buffer geometry: {out.geom_type}")
+
+
+FIR_POLY = parse_esa_fir_polygon(TOPSKY_PATH)
+OUTPUT_CLIP = buffer_polygon_nm(FIR_POLY, FIR_BUFFER_NM, FIR_SIMPLIFY_NM)
+# Keep BBOX alias for call sites that expect a clip polygon.
+BBOX = OUTPUT_CLIP
+MIN_LON, MIN_LAT, MAX_LON, MAX_LAT = OUTPUT_CLIP.bounds
+# Wider box for coast/island polygonization so open coastline still closes.
+BUILD_MIN_LON = min(7.0, MIN_LON - 1.0)
+BUILD_MAX_LON = max(26.0, MAX_LON + 1.0)
+BUILD_MIN_LAT = min(53.0, MIN_LAT - 0.5)
+BUILD_MAX_LAT = max(72.0, MAX_LAT + 0.5)
+BUILD_BBOX = box(BUILD_MIN_LON, BUILD_MIN_LAT, BUILD_MAX_LON, BUILD_MAX_LAT)
 
 # RTC colours (EuroScope: R + G*256 + B*65536).
 # Land: 62.5% toward warmed green/yellow from raw mix → RGB(44,151,85)
@@ -38,8 +128,6 @@ LAND_SEEDS = [
     (11.97, 57.71),  # Gothenburg
     (13.0, 55.6),  # Malmö / Skåne
     (10.75, 59.91),  # Oslo
-    (9.5, 56.2),  # Jutland
-    (9.92, 57.05),  # Aalborg
     (23.5, 61.5),  # Finland inland (east edge)
     (24.94, 60.17),  # Helsinki
     (22.15, 65.58),  # Luleå
@@ -52,19 +140,15 @@ LAND_SEEDS = [
 
 WATER_SEEDS = [
     (20.0, 58.5),  # Baltic
-    (8.0, 57.0),  # North Sea
     (20.0, 63.0),  # Bothnia
-    (10.0, 65.0),  # Norwegian Sea
-    (22.0, 71.5),  # Barents
+    (11.0, 65.0),  # Norwegian Sea (east of cut)
     (14.0, 54.5),  # south water
     (20.5, 60.2),  # Åland sea
     (23.0, 56.5),  # SE Baltic
     (12.0, 56.5),  # Kattegat
-    (8.5, 66.0),
-    (15.0, 71.5),
     (24.0, 58.0),
-    (9.0, 68.0),
-    (18.0, 71.0),
+    (12.0, 68.0),  # north Norwegian Sea
+    (24.5, 65.5),  # east Bothnia / Finnish side
 ]
 
 MIN_AREA_DEG2 = 1e-7
@@ -171,10 +255,12 @@ def as_line_list(geom) -> list[LineString]:
     return []
 
 
-def clip_lines(segs: list[LineString]) -> list[LineString]:
+def clip_lines(
+    segs: list[LineString], clip_box: Polygon = BUILD_BBOX
+) -> list[LineString]:
     out: list[LineString] = []
     for ls in segs:
-        c = ls.intersection(BBOX)
+        c = ls.intersection(clip_box)
         out.extend(as_line_list(c))
     return out
 
@@ -200,14 +286,25 @@ def iter_polys(geom) -> list[Polygon]:
     return []
 
 
+def clip_polys_to_output(polys: list[Polygon]) -> list[Polygon]:
+    """Keep only the part of each poly inside FIR+50 NM clip."""
+    out: list[Polygon] = []
+    for p in polys:
+        inter = p.intersection(OUTPUT_CLIP)
+        for q in iter_polys(inter):
+            if q.area >= MIN_AREA_DEG2:
+                out.append(q)
+    return out
+
+
 def close_open_against_bbox(lines: list[LineString]) -> list[Polygon]:
     boundary = LineString(
         [
-            (MIN_LON, MIN_LAT),
-            (MAX_LON, MIN_LAT),
-            (MAX_LON, MAX_LAT),
-            (MIN_LON, MAX_LAT),
-            (MIN_LON, MIN_LAT),
+            (BUILD_MIN_LON, BUILD_MIN_LAT),
+            (BUILD_MAX_LON, BUILD_MIN_LAT),
+            (BUILD_MAX_LON, BUILD_MAX_LAT),
+            (BUILD_MIN_LON, BUILD_MAX_LAT),
+            (BUILD_MIN_LON, BUILD_MIN_LAT),
         ]
     )
     unioned = snap(unary_union(list(lines) + [boundary]), boundary, 1e-7)
@@ -311,22 +408,18 @@ def emit_region(coords: list[tuple[float, float]], color: str) -> list[str]:
 def water_background_tiles(
     tile_deg: float = WATER_TILE_DEG,
 ) -> list[list[tuple[float, float]]]:
-    """Split the RTC water rectangle into a lon/lat grid of small quads."""
+    """Tile FIR+50 NM clip into ~1° cells (intersected with the clip poly)."""
     tiles: list[list[tuple[float, float]]] = []
-    lon = MIN_LON
+    lon = math.floor(MIN_LON / tile_deg) * tile_deg
     while lon < MAX_LON - 1e-12:
-        lon2 = min(lon + tile_deg, MAX_LON)
-        lat = MIN_LAT
+        lon2 = lon + tile_deg
+        lat = math.floor(MIN_LAT / tile_deg) * tile_deg
         while lat < MAX_LAT - 1e-12:
-            lat2 = min(lat + tile_deg, MAX_LAT)
-            tiles.append(
-                [
-                    (lon, lat),
-                    (lon2, lat),
-                    (lon2, lat2),
-                    (lon, lat2),
-                ]
-            )
+            lat2 = lat + tile_deg
+            inter = box(lon, lat, lon2, lat2).intersection(OUTPUT_CLIP)
+            for q in iter_polys(inter):
+                if q.area >= MIN_AREA_DEG2:
+                    tiles.append(exterior_coords(q))
             lat = lat2
         lon = lon2
     return tiles
@@ -335,8 +428,8 @@ def water_background_tiles(
 def tile_polygon(poly: Polygon, tile_deg: float = LAND_TILE_DEG) -> list[Polygon]:
     """Intersect a land/island polygon with the same lon/lat grid as water."""
     minx, miny, maxx, maxy = poly.bounds
-    lon0 = MIN_LON + math.floor((minx - MIN_LON) / tile_deg) * tile_deg
-    lat0 = MIN_LAT + math.floor((miny - MIN_LAT) / tile_deg) * tile_deg
+    lon0 = math.floor(minx / tile_deg) * tile_deg
+    lat0 = math.floor(miny / tile_deg) * tile_deg
     pieces: list[Polygon] = []
     lon = lon0
     while lon < maxx - 1e-12:
@@ -344,7 +437,7 @@ def tile_polygon(poly: Polygon, tile_deg: float = LAND_TILE_DEG) -> list[Polygon
         lat = lat0
         while lat < maxy - 1e-12:
             lat2 = lat + tile_deg
-            inter = poly.intersection(box(lon, lat, min(lon2, MAX_LON), min(lat2, MAX_LAT)))
+            inter = poly.intersection(box(lon, lat, lon2, lat2))
             for q in iter_polys(inter):
                 if q.area >= MIN_AREA_DEG2:
                     pieces.append(q)
@@ -444,6 +537,13 @@ def main() -> None:
     text = strip_custom_rtc_color_defines(text)
     text = ensure_rtc_color_defines(text)
 
+    print(
+        f"RTC clip: ESAA FIR + {FIR_BUFFER_NM:.0f} NM "
+        f"(simplify {FIR_SIMPLIFY_NM:.0f} NM) "
+        f"bounds lon={MIN_LON:.2f}..{MAX_LON:.2f} lat={MIN_LAT:.2f}..{MAX_LAT:.2f} "
+        f"verts={len(OUTPUT_CLIP.exterior.coords)}"
+    )
+
     print("Extracting landmark segments...")
     spans = find_landmark_spans(text)
     coast = clip_lines(extract_segments(text, *spans["COAST"]))
@@ -459,15 +559,21 @@ def main() -> None:
     lake_lines = merge_lines(lakes)
 
     print("Building mainland from COAST...")
-    land_polys = [simplify_poly(p) for p in classify_land_from_coast(coast_lines)]
+    land_polys = clip_polys_to_output(
+        [simplify_poly(p) for p in classify_land_from_coast(coast_lines)]
+    )
     print(f"  land faces: {len(land_polys)} area={sum(p.area for p in land_polys):.3f}")
 
     print("Building ISLANDS...")
-    island_polys = [simplify_poly(p) for p in island_polygons(island_lines)]
+    island_polys = clip_polys_to_output(
+        [simplify_poly(p) for p in island_polygons(island_lines)]
+    )
     print(f"  island polys: {len(island_polys)} area={sum(p.area for p in island_polys):.3f}")
 
     print("Building LAKES...")
-    lake_polys = [simplify_poly(p) for p in lake_polygons(lake_lines)]
+    lake_polys = clip_polys_to_output(
+        [simplify_poly(p) for p in lake_polygons(lake_lines)]
+    )
     print(f"  lake polys: {len(lake_polys)} area={sum(p.area for p in lake_polys):.3f}")
 
     print(f"Tiling mainland into {LAND_TILE_DEG}° cells...")
