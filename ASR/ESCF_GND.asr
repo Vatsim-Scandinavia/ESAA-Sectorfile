@@ -9,23 +9,27 @@ Free Text:ESCF RWY\19:freetext
 Free Text:ESCF RWY\26:freetext
 Free Text:ESCF RWY\H09:freetext
 Free Text:ESCF RWY\H27:freetext
-Free Text:ESCF STAND\(HKP 15):freetext
-Free Text:ESCF STAND\(HKP 16):freetext
-Free Text:ESCF STAND\(JAS):freetext
 Free Text:ESCF STAND\APN 3:freetext
 Free Text:ESCF STAND\APN 7:freetext
 Free Text:ESCF STAND\MIL APN 1:freetext
 Free Text:ESCF STAND\MIL APN 2:freetext
-Free Text:ESCF STAND\MIL APN 4 (SK 60):freetext
+Free Text:ESCF STAND\MIL APN 4:freetext
 Free Text:ESCF STAND\MIL APN 6:freetext
 Free Text:ESCF STAND\MIL APN 8:freetext
 Free Text:ESCF TAXIWAY\C:freetext
 Free Text:ESCF TAXIWAY\E:freetext
+Free Text:ESCF TAXIWAY\E:freetext
 Free Text:ESCF TAXIWAY\F:freetext
+Free Text:ESCF TAXIWAY\F:freetext
+Free Text:ESCF TAXIWAY\G:freetext
 Free Text:ESCF TAXIWAY\K:freetext
 Free Text:ESCF TAXIWAY\N:freetext
 Free Text:ESCF TAXIWAY\P:freetext
 Free Text:ESCF TAXIWAY\Q:freetext
+Free Text:ESCF TAXIWAY\Y:freetext
+Free Text:ESCF TAXIWAY\Y:freetext
+Free Text:ESCF TAXIWAY\Y:freetext
+Free Text:ESCF TAXIWAY\Y:freetext
 Free Text:ESCF TAXIWAY\Y:freetext
 Free Text:ESCF TAXIWAY\Z:freetext
 Geo:ESCF Groundlayout:

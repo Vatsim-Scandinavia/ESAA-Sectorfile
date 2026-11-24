@@ -11,6 +11,11 @@ Free Text:ESSL STAND\3:freetext
 Free Text:ESSL STAND\Aeroclub:freetext
 Free Text:ESSL STAND\Engine test area:freetext
 Free Text:ESSL STAND\GAC APN:freetext
+Free Text:ESSL STAND\H1:freetext
+Free Text:ESSL STAND\H2:freetext
+Free Text:ESSL STAND\H3:freetext
+Free Text:ESSL STAND\H4:freetext
+Free Text:ESSL STAND\H5:freetext
 Free Text:ESSL STAND\KLM STD 1, Other STD 2:freetext
 Free Text:ESSL STAND\MIL APN (SB39 testing):freetext
 Free Text:ESSL STAND\Saab GlobalEye:freetext
@@ -27,9 +32,7 @@ Free Text:ESSL TAXIWAY\K:freetext
 Free Text:ESSL TAXIWAY\L:freetext
 Free Text:ESSL TAXIWAY\M:freetext
 Geo:ESSL Groundlayout:
-Geo:ESSL Groundlayout OLD:
 Regions:ESSL GROUND:polygon
-SHOWC:1
 SHOWC:1
 SHOWSB:0
 BELOW:0

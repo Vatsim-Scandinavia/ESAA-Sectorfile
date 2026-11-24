@@ -18,10 +18,11 @@ Free Text:ESDF MIL\MIL APN 2:freetext
 Free Text:ESDF MIL\MIL APN 3:freetext
 Free Text:ESDF MIL\MIL APN 4:freetext
 Free Text:ESDF MIL\MIL APN 5:freetext
-Free Text:ESDF MIL\MIL APN 6 (QRA):freetext
+Free Text:ESDF MIL\MIL APN 6:freetext
 Free Text:ESDF MIL\MIL APN 7:freetext
 Free Text:ESDF MIL\MIL APN 81:freetext
 Free Text:ESDF MIL\N:freetext
+Free Text:ESDF MIL\P:freetext
 Free Text:ESDF MIL\P:freetext
 Free Text:ESDF MIL\Y:freetext
 Free Text:ESDF MIL\Y:freetext
@@ -37,13 +38,12 @@ Free Text:ESDF RWY\H36:freetext
 Free Text:ESDF RWY\TLOF 1:freetext
 Free Text:ESDF RWY\TLOF 2:freetext
 Free Text:ESDF STAND\1:freetext
-Free Text:ESDF STAND\2A/B:freetext
+Free Text:ESDF STAND\2:freetext
 Free Text:ESDF STAND\3:freetext
 Free Text:ESDF STAND\41:freetext
 Free Text:ESDF STAND\42:freetext
 Free Text:ESDF STAND\43:freetext
-Free Text:ESDF STAND\Blekinge Aeroclub:freetext
-Free Text:ESDF STAND\Ronneby Aeroclub:freetext
+Free Text:ESDF STAND\Aeroclub:freetext
 Free Text:ESDF STAND\Terminal:freetext
 Free Text:ESDF TAXIWAY\A:freetext
 Free Text:ESDF TAXIWAY\D:freetext

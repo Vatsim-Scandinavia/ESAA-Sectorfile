@@ -7,16 +7,15 @@ Free Text:ESCM RWY\03:freetext
 Free Text:ESCM RWY\08:freetext
 Free Text:ESCM RWY\21:freetext
 Free Text:ESCM RWY\26:freetext
-Free Text:ESCM RWY\H17:freetext
-Free Text:ESCM RWY\H35:freetext
-Free Text:ESCM STAND\2x C130 or 1x C17:freetext
 Free Text:ESCM STAND\APN 1:freetext
 Free Text:ESCM STAND\APN 2:freetext
+Free Text:ESCM STAND\APN 3:freetext
 Free Text:ESCM STAND\APN Cargo:freetext
 Free Text:ESCM STAND\APN Central:freetext
 Free Text:ESCM STAND\APN East:freetext
 Free Text:ESCM STAND\APN North:freetext
 Free Text:ESCM STAND\APN West:freetext
+Free Text:ESCM TAXIWAY\A:freetext
 Free Text:ESCM TAXIWAY\A:freetext
 Free Text:ESCM TAXIWAY\A:freetext
 Free Text:ESCM TAXIWAY\A:freetext
@@ -27,10 +26,14 @@ Free Text:ESCM TAXIWAY\D:freetext
 Free Text:ESCM TAXIWAY\E:freetext
 Free Text:ESCM TAXIWAY\F:freetext
 Free Text:ESCM TAXIWAY\F:freetext
+Free Text:ESCM TAXIWAY\F:freetext
 Free Text:ESCM TAXIWAY\G:freetext
 Free Text:ESCM TAXIWAY\H:freetext
+Free Text:ESCM TAXIWAY\HEL TWY:freetext
 Free Text:ESCM TAXIWAY\J:freetext
 Free Text:ESCM TAXIWAY\K:freetext
+Free Text:ESCM TAXIWAY\L:freetext
+Free Text:ESCM TAXIWAY\M:freetext
 Geo:ESCM Groundlayout:
 Regions:ESCM GROUND:polygon
 SHOWC:1
