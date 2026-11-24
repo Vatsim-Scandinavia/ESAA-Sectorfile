@@ -4,12 +4,17 @@ DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
 Free Text:ESNJ RWY\14:freetext
+Free Text:ESNJ RWY\15:freetext
+Free Text:ESNJ RWY\18:freetext
 Free Text:ESNJ RWY\32:freetext
+Free Text:ESNJ RWY\33:freetext
+Free Text:ESNJ RWY\36:freetext
 Free Text:ESNJ RWY\RWY B:freetext
 Free Text:ESNJ RWY\RWY C:freetext
 Free Text:ESNJ RWY\RWY D:freetext
 Free Text:ESNJ STAND\APN 1:freetext
 Free Text:ESNJ STAND\APN 2:freetext
+Free Text:ESNJ TAXIWAY\A:freetext
 Geo:ESNJ Groundlayout:
 Regions:ESNJ GROUND:polygon
 SHOWC:1

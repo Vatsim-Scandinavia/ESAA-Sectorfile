@@ -4,10 +4,15 @@ DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
 Free Text:ESIB RWY\01:freetext
+Free Text:ESIB RWY\06:freetext
+Free Text:ESIB RWY\07:freetext
 Free Text:ESIB RWY\11:freetext
 Free Text:ESIB RWY\19:freetext
+Free Text:ESIB RWY\24:freetext
+Free Text:ESIB RWY\25:freetext
 Free Text:ESIB RWY\29:freetext
-Free Text:ESIB STAND\(JAS):freetext
+Free Text:ESIB RWY\H�ljestena:freetext
+Free Text:ESIB RWY\S�restad:freetext
 Free Text:ESIB STAND\1:freetext
 Free Text:ESIB STAND\2:freetext
 Free Text:ESIB STAND\3:freetext
@@ -15,11 +20,10 @@ Free Text:ESIB STAND\4:freetext
 Free Text:ESIB STAND\5:freetext
 Free Text:ESIB STAND\6:freetext
 Free Text:ESIB STAND\APN 1:freetext
-Free Text:ESIB STAND\APN 2 (JAS):freetext
 Free Text:ESIB STAND\APN 3:freetext
 Free Text:ESIB STAND\APN 4:freetext
 Free Text:ESIB STAND\APN 5:freetext
-Free Text:ESIB STAND\APN 6 (TP):freetext
+Free Text:ESIB STAND\APN 6:freetext
 Free Text:ESIB STAND\APN 7:freetext
 Free Text:ESIB STAND\APN 9:freetext
 Free Text:ESIB TAXIWAY\A:freetext

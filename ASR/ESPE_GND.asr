@@ -4,11 +4,13 @@ DisplayTypeGeoReferenced:1
 SECTORFILE:
 SECTORTITLE:
 Free Text:ESPE RWY\11:freetext
+Free Text:ESPE RWY\11:freetext
+Free Text:ESPE RWY\12:freetext
 Free Text:ESPE RWY\29:freetext
+Free Text:ESPE RWY\29:freetext
+Free Text:ESPE RWY\30:freetext
 Free Text:ESPE RWY\RWY C:freetext
 Free Text:ESPE RWY\RWY D:freetext
-Free Text:ESPE STAND\(JAS):freetext
-Free Text:ESPE STAND\(TP):freetext
 Free Text:ESPE STAND\APN 1:freetext
 Free Text:ESPE STAND\APN 2:freetext
 Free Text:ESPE STAND\APN 3:freetext
@@ -22,6 +24,7 @@ Free Text:ESPE TWY\A2:freetext
 Free Text:ESPE TWY\A3:freetext
 Free Text:ESPE TWY\B:freetext
 Free Text:ESPE TWY\D:freetext
+Free Text:ESPE TWY\F:freetext
 Free Text:ESPE TWY\G:freetext
 Free Text:ESPE TWY\H1:freetext
 Free Text:ESPE TWY\H2:freetext
