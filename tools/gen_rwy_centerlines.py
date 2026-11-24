@@ -1,33 +1,57 @@
-"""Generate GRP RWY CENTERLINE maps from AppPath data.
+"""Generate GRP RWY CENTERLINE maps from AppPath + SCT runway data.
 
 Civil: 15 NM line, ticks at 2/4/6/8/10 NM.
-MIL (e.g. ESPA): 15 NM line, ticks every 1 NM to 6, then every 2 NM;
-                 6 NM and 10 NM ticks are slightly longer.
+MIL: 15 NM line, ticks every 1 NM to 6, then every 2 NM;
+     6 NM and 10 NM ticks are slightly longer.
+
+Skips ESSA and ESGG (manual / excluded).
 """
 
 from __future__ import annotations
 
 import math
+import re
 from pathlib import Path
 
-SETTINGS = Path(__file__).resolve().parents[1] / "Plugins" / "GRpluginSettings.txt"
-MAPS = Path(__file__).resolve().parents[1] / "Plugins" / "GRpluginMaps.txt"
+ESAA = Path(__file__).resolve().parents[1]
+SETTINGS = ESAA / "Plugins" / "GRpluginSettings.txt"
+MAPS = ESAA / "Plugins" / "GRpluginMaps.txt"
+# Sector SCT lives next to the EuroScope ESAA symlink (AppData), not the git checkout root.
+EUROSCOPE_APPDATA = Path.home() / "AppData" / "Roaming" / "EuroScope"
 
-SKIP_AIRPORTS = {"ESSA"}
-MIL_AIRPORTS = {"ESPA", "ESIB"}  # dual-use / military AppPath airports
+SKIP_AIRPORTS = {"ESSA", "ESGG"}
+LOGIN_PROFILES = ESAA / "Settings" / "LoginProfiles.txt"
+MIL_AIRPORTS = {
+    "ESPE",
+    "ESNJ",
+    "ESPA",
+    "ESCM",
+    "ESIB",
+    "ESIA",
+    "ESCF",
+    "ESSL",
+    "ESMV",
+    "ESDF",
+}
 
 LINE_NM = 15.0
 CIVIL_TICK_NMS = (2, 4, 6, 8, 10)
-# 1..6 every NM, then every 2 NM out to the line end
 MIL_TICK_NMS = (1, 2, 3, 4, 5, 6, 8, 10, 12, 14)
 MIL_LONG_TICK_NMS = {6, 10}
 
 TICK_HALF_NM = 0.2
-TICK_HALF_NM_LONG = 0.3  # slightly longer for 6 / 10 NM
+TICK_HALF_NM_LONG = 0.3
 EARTH_NM = 3440.065
 
 MARKER = "; --- AUTO RWY CENTERLINES START ---"
 MARKER_END = "; --- AUTO RWY CENTERLINES END ---"
+
+SCT_RWY_RE = re.compile(
+    r"^(\S+)\s+(\S+)\s+(\d+)\s+(\d+)\s+"
+    r"(N\d{3}\.\d{2}\.\d{2}\.\d{3})\s+([EW]\d{3}\.\d{2}\.\d{2}\.\d{3})\s+"
+    r"(N\d{3}\.\d{2}\.\d{2}\.\d{3})\s+([EW]\d{3}\.\d{2}\.\d{2}\.\d{3})\s+"
+    r"(ES\w+)\s*$"
+)
 
 
 def dest(lat: float, lon: float, bearing_deg: float, dist_nm: float) -> tuple[float, float]:
@@ -69,15 +93,89 @@ def fmt_coord(lat: float, lon: float) -> str:
     return f"{one(lat, 'N', 'S')}:{one(lon, 'E', 'W')}"
 
 
-def parse_apppaths(text: str) -> list[tuple[str, str, float, float, float]]:
-    rows = []
+def parse_dms(token: str) -> float:
+    hemi = token[0]
+    deg_s, min_s, sec_s, frac_s = token[1:].split(".")
+    val = int(deg_s) + int(min_s) / 60.0 + (int(sec_s) + int(frac_s) / 1000.0) / 3600.0
+    if hemi in ("S", "W"):
+        val = -val
+    return val
+
+
+def find_sct() -> Path:
+    search_roots = [EUROSCOPE_APPDATA, ESAA, ESAA.parent]
+    candidates: list[Path] = []
+    for root in search_roots:
+        if root.is_dir():
+            candidates.extend(root.glob("ESAA-Sweden*.sct"))
+    if not candidates:
+        raise FileNotFoundError(f"No ESAA-Sweden*.sct under {search_roots}")
+    return max(candidates, key=lambda p: p.stat().st_mtime)
+
+
+def parse_apppaths(text: str) -> dict[tuple[str, str], tuple[float, float, float]]:
+    """Return {(icao, rwy): (lat, lon, inbound_hdg)} preferring AppPath precision."""
+    rows: dict[tuple[str, str], tuple[float, float, float]] = {}
     for line in text.splitlines():
         if not line.startswith("AppPath="):
             continue
         parts = line.split("=", 1)[1].split(":")
         icao, rwy = parts[0], parts[1]
         lat, lon, hdg = float(parts[2]), float(parts[3]), float(parts[4])
+        rows[(icao, rwy)] = (lat, lon, hdg)
+    return rows
+
+
+def parse_sct_runways(sct_text: str) -> dict[tuple[str, str], tuple[float, float, float]]:
+    """Threshold + magnetic inbound heading from [RUNWAY] for ES* airports."""
+    m = re.search(r"\[RUNWAY\](.*?)(?=\n\[|\Z)", sct_text, re.S)
+    if not m:
+        return {}
+    rows: dict[tuple[str, str], tuple[float, float, float]] = {}
+    for line in m.group(1).splitlines():
+        line = line.strip()
+        if not line or line.startswith(";"):
+            continue
+        mm = SCT_RWY_RE.match(line)
+        if not mm:
+            continue
+        rwy1, rwy2, hdg1, hdg2, lat1, lon1, lat2, lon2, icao = mm.groups()
+        rows[(icao, rwy1)] = (parse_dms(lat1), parse_dms(lon1), float(hdg1))
+        rows[(icao, rwy2)] = (parse_dms(lat2), parse_dms(lon2), float(hdg2))
+    return rows
+
+
+def atc_airports() -> set[str]:
+    """Airports with TWR/GND/APP/DEL login profiles (excl. FIR/sector CTR)."""
+    text = LOGIN_PROFILES.read_text(encoding="utf-8", errors="replace")
+    out: set[str] = set()
+    for m in re.finditer(r"^PROFILE:(ES[A-Z]{2})_(.+)$", text, re.M):
+        icao, rest = m.group(1), m.group(2)
+        if icao in ("ESAA", "ESOS", "ESMM", "ESSR"):
+            continue
+        if any(x in rest for x in ("TWR", "GND", "APP", "DEL")):
+            out.add(icao)
+    return out
+
+
+def merge_sources(
+    apppath: dict[tuple[str, str], tuple[float, float, float]],
+    sct: dict[tuple[str, str], tuple[float, float, float]],
+    allow: set[str],
+) -> list[tuple[str, str, float, float, float]]:
+    """AppPath wins on overlap; only airports with ATC login profiles."""
+    merged = dict(sct)
+    merged.update(apppath)  # AppPath overrides SCT
+    rows = []
+    for (icao, rwy), (lat, lon, hdg) in merged.items():
+        if icao in SKIP_AIRPORTS:
+            continue
+        if icao not in allow:
+            continue
+        if not icao.startswith("ES"):
+            continue
         rows.append((icao, rwy, lat, lon, hdg))
+    rows.sort(key=lambda r: (r[0], r[1]))
     return rows
 
 
@@ -93,12 +191,12 @@ def map_block(icao: str, rwy: str, lat: float, lon: float, inbound_true: float) 
     tick_nms, long_nms = tick_plan(icao)
     lines = [
         f"MAP:CENTERLINE {icao} {rwy}:AT",
-        f"AIRPORT:{icao}",
+        "AIRPORT:ESAA",
         "FOLDER:RWY LINES",
         f"ACTIVE:RWY:ARR:{icao}{rwy}:DEP:*",
         "COLOR:LINE",
         "STYLE:SOLID:2",
-        "ASRDATA:TWR",
+        "ASRDATA:RTC",
         f"LINE:{fmt_coord(lat, lon)}:{fmt_coord(*end)}",
     ]
     for nm in tick_nms:
@@ -111,12 +209,7 @@ def map_block(icao: str, rwy: str, lat: float, lon: float, inbound_true: float) 
 
 
 def build_maps(rows: list[tuple[str, str, float, float, float]]) -> str:
-    blocks = []
-    for icao, rwy, lat, lon, hdg in rows:
-        if icao in SKIP_AIRPORTS:
-            continue
-        blocks.append(map_block(icao, rwy, lat, lon, hdg))
-    return "\n".join(blocks)
+    return "\n".join(map_block(*row) for row in rows)
 
 
 def upsert_maps(maps_text: str, generated: str) -> str:
@@ -138,17 +231,32 @@ def upsert_maps(maps_text: str, generated: str) -> str:
 
 def main() -> None:
     settings = SETTINGS.read_text(encoding="utf-8", errors="replace")
-    rows = parse_apppaths(settings)
-    generated = build_maps(rows)
-    keep = [r for r in rows if r[0] not in SKIP_AIRPORTS]
-    print(f"Generating {len(keep)} centerlines (skipped {sorted(SKIP_AIRPORTS)})")
-    for icao, rwy, _, _, hdg in keep:
-        kind = "MIL" if icao in MIL_AIRPORTS else "CIV"
-        ticks, long_t = tick_plan(icao)
-        print(f"  {icao} {rwy} [{kind}] hdg {hdg} ticks={ticks} long={sorted(long_t)}")
+    sct_path = find_sct()
+    sct_text = sct_path.read_text(encoding="utf-8", errors="replace")
 
-    maps = MAPS.read_text(encoding="utf-8", errors="replace")
-    MAPS.write_text(upsert_maps(maps, generated), encoding="utf-8", newline="\n")
+    allow = atc_airports()
+    apppath = parse_apppaths(settings)
+    sct = parse_sct_runways(sct_text)
+    rows = merge_sources(apppath, sct, allow)
+
+    mil_rows = [r for r in rows if r[0] in MIL_AIRPORTS]
+    civ_rows = [r for r in rows if r[0] not in MIL_AIRPORTS]
+    print(f"SCT: {sct_path.name}")
+    print(f"ATC airports from LoginProfiles: {len(allow)}")
+    print(f"Generating {len(rows)} centerlines "
+          f"(MIL {len(mil_rows)}, CIV {len(civ_rows)}; skipped {sorted(SKIP_AIRPORTS)})")
+    for icao, rwy, _, _, hdg in mil_rows:
+        src = "AppPath" if (icao, rwy) in apppath else "SCT"
+        ticks, long_t = tick_plan(icao)
+        print(f"  {icao} {rwy:3} [MIL/{src}] hdg {hdg:6.2f} ticks={ticks} long={sorted(long_t)}")
+
+    missing_mil = MIL_AIRPORTS - {r[0] for r in rows}
+    if missing_mil:
+        print(f"WARNING: no runways found for MIL airports: {sorted(missing_mil)}")
+
+    generated = build_maps(rows)
+    maps = MAPS.read_bytes().decode("cp1252")
+    MAPS.write_bytes(upsert_maps(maps, generated).encode("cp1252"))
     print(f"Updated {MAPS}")
 
 

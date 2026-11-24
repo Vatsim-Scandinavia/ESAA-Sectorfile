@@ -593,6 +593,5 @@ DISABLEZOOMING:0
 DisplayRotation:0.00000
 TAGFAMILY:GRplugin
 WINDOWAREA:59.140722:10.773958:65.904819:24.127989
-PLUGIN:Ground Radar plugin:HideMapData:GND
-PLUGIN:Ground Radar plugin:TowerMode:ESNN
+PLUGIN:Ground Radar plugin:TowerMode:ESAA
 PLUGIN:TopSky plugin:NoDraw:1
