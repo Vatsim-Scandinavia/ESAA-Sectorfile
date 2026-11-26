@@ -1,0 +1,84 @@
+"""ESSA_TWR: ESSB CTR outer edge only — exclude ESSE ATZ circle."""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+MAPS = Path(__file__).resolve().parents[1] / "Plugins" / "GRpluginMaps.txt"
+
+NEW_STOCKHOLM_ESSB = """SCTFILEDATA/MONO:ARTCC HIGH\\ESOS TMA
+SCTFILEDATA/MONO:ARTCC LOW\\ESSA CTR
+// ESSB CTR outer edge only (no ESSE ATZ)
+LINE:N059.26.28.000:E017.44.48.000:N059.26.29.000:E017.57.17.000
+LINE:N059.26.29.000:E017.57.17.000:N059.22.58.000:E018.09.48.000
+LINE:N059.22.58.000:E018.09.48.000:N059.14.58.000:E018.09.48.000
+LINE:N059.14.58.000:E018.09.48.000:N059.14.58.000:E017.44.48.000
+LINE:N059.14.58.000:E017.44.48.000:N059.19.28.000:E017.44.48.000
+LINE:N059.19.28.000:E017.44.48.000:N059.19.28.000:E017.41.48.000
+LINE:N059.19.28.000:E017.41.48.000:N059.21.58.000:E017.41.48.000
+LINE:N059.21.58.000:E017.41.48.000:N059.21.58.000:E017.44.48.000
+LINE:N059.21.58.000:E017.44.48.000:N059.26.28.000:E017.44.48.000
+// CTR Sector E/W split (AIP AD 2 ESSA) - not in SCT ARTCC
+LINE:N059.48.58.000:E017.59.56.000:N059.29.54.000:E017.53.02.000"""
+
+NEW_CTR_SHADE_ESSB = """COORDTYPE:OTHER:REGION
+// ESSB CTR outer only (no ESSE ATZ)
+N059.26.28.000 E017.44.48.000
+N059.26.29.000 E017.57.17.000
+N059.22.58.000 E018.09.48.000
+N059.14.58.000 E018.09.48.000
+N059.14.58.000 E017.44.48.000
+N059.19.28.000 E017.44.48.000
+N059.19.28.000 E017.41.48.000
+N059.21.58.000 E017.41.48.000
+N059.21.58.000 E017.44.48.000
+N059.26.28.000 E017.44.48.000"""
+
+
+def main() -> None:
+    text = MAPS.read_bytes().decode("cp1252")
+
+    m = re.search(
+        r"SCTFILEDATA/MONO:ARTCC HIGH\\ESOS TMA\n"
+        r"SCTFILEDATA/MONO:ARTCC LOW\\ESSA CTR\n"
+        r"SCTFILEDATA/MONO:ARTCC LOW\\ESSB CTR\n"
+        r"// CTR Sector E/W split[^\n]*\n"
+        r"LINE:N059\.48\.58\.000:E017\.59\.56\.000:N059\.29\.54\.000:E017\.53\.02\.000",
+        text,
+    )
+    if not m:
+        raise SystemExit("STOCKHOLM TMA ESSB SCTFILEDATA block not found")
+    text = text[: m.start()] + NEW_STOCKHOLM_ESSB + text[m.end() :]
+
+    old_shade = (
+        "COORDTYPE:OTHER:REGION\n"
+        "N059.26.28.000 E017.44.48.000\n"
+        "N059.26.28.200 E017.46.45.700\n"
+        "N059.26.28.000 E017.50.48.000\n"
+        "N059.26.28.200 E017.51.52.500\n"
+        "N059.26.29.000 E017.57.17.000\n"
+        "N059.22.58.000 E018.09.48.000\n"
+        "N059.17.45.100 E018.09.48.000\n"
+        "N059.14.58.000 E018.09.48.000\n"
+        "N059.14.58.000 E018.01.49.815\n"
+        "N059.14.58.000 E017.54.48.000\n"
+        "N059.14.58.000 E017.47.52.000\n"
+        "N059.14.58.000 E017.44.48.000\n"
+        "N059.19.28.000 E017.44.48.000\n"
+        "N059.19.28.000 E017.41.48.000\n"
+        "N059.21.58.000 E017.41.48.000\n"
+        "N059.21.58.000 E017.44.48.000\n"
+        "N059.22.58.000 E017.44.48.000\n"
+        "N059.26.28.000 E017.44.48.000"
+    )
+    if old_shade not in text:
+        raise SystemExit("CTR SHADE ESSB region not found")
+    text = text.replace(old_shade, NEW_CTR_SHADE_ESSB, 1)
+
+    MAPS.write_bytes(text.encode("cp1252"))
+    print(f"Updated {MAPS}")
+
+
+if __name__ == "__main__":
+    main()
