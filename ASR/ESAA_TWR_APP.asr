@@ -122,6 +122,7 @@ Fixes:ASTOS:symbol
 Fixes:ASVOB:symbol
 Fixes:ATLEM:symbol
 Fixes:ATRIB:symbol
+Fixes:AZHET:symbol
 Fixes:BABAP:symbol
 Fixes:BABEN:symbol
 Fixes:BABOT:symbol
@@ -539,7 +540,12 @@ Fixes:NQ700:symbol
 Fixes:NQ703:symbol
 Fixes:NS850:symbol
 Fixes:NU550:symbol
-Fixes:NU850:symbol
+Fixes:NU554:symbol
+Fixes:NU555:symbol
+Fixes:NU556:symbol
+Fixes:NU854:symbol
+Fixes:NU855:symbol
+Fixes:NU856:symbol
 Fixes:NUGPU:symbol
 Fixes:NUGTA:symbol
 Fixes:NUPVI:symbol
@@ -600,6 +606,7 @@ Fixes:OKSAT:symbol
 Fixes:OLANU:symbol
 Fixes:OLGOL:symbol
 Fixes:OLGUV:symbol
+Fixes:ORCOX:symbol
 Fixes:OSDOK:symbol
 Fixes:OSKIR:symbol
 Fixes:OSKOK:symbol
@@ -732,7 +739,6 @@ Fixes:TIGBA:symbol
 Fixes:TILAV:symbol
 Fixes:TILSA:symbol
 Fixes:TIMOB:symbol
-Fixes:TINDO:symbol
 Fixes:TINKA:symbol
 Fixes:TIPEL:symbol
 Fixes:TIPIX:symbol

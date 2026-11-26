@@ -17,19 +17,30 @@ def parse_areas(text: str) -> list[dict]:
     lines = text.splitlines()
     areas: list[dict] = []
     i = 0
+    in_tempo_rd = False
     while i < len(lines):
-        if not lines[i].startswith("AREA:"):
+        line = lines[i]
+        if "START OF TEMPO R AND D AREAS" in line:
+            in_tempo_rd = True
+        elif "END OF TEMPO R AND D AREAS" in line:
+            in_tempo_rd = False
+        if not line.startswith("AREA:"):
             i += 1
             continue
-        m = re.match(r"^AREA:([^:]+):(.*)$", lines[i])
+        m = re.match(r"^AREA:([^:]+):(.*)$", line)
         assert m
         typ, rawname = m.group(1), m.group(2)
         name = rawname.lstrip()
         lead = len(rawname) - len(name)
+        tempo = in_tempo_rd
         i += 1
         coords: list[tuple[str, str]] = []
         always_active = False
         while i < len(lines) and not lines[i].startswith("AREA:"):
+            if "START OF TEMPO R AND D AREAS" in lines[i]:
+                in_tempo_rd = True
+            elif "END OF TEMPO R AND D AREAS" in lines[i]:
+                in_tempo_rd = False
             ll = lines[i].strip()
             if ll == "ACTIVE:1":
                 always_active = True
@@ -44,6 +55,7 @@ def parse_areas(text: str) -> list[dict]:
                 "lead": lead,
                 "coords": coords,
                 "always_active": always_active,
+                "tempo": tempo,
             }
         )
     return areas
@@ -90,24 +102,18 @@ def one_map(
 
 
 def build_insert(areas: list[dict]) -> str:
-    r_areas = [
-        a
-        for a in areas
-        if a["lead"] == 2
-        and a["name"].startswith("R")
-        and len(a["name"]) > 1
-        and a["name"][1].isdigit()
-        and a["coords"]
-    ]
-    d_areas = [
-        a
-        for a in areas
-        if a["lead"] == 2
-        and a["name"].startswith("D")
-        and len(a["name"]) > 1
-        and a["name"][1].isdigit()
-        and a["coords"]
-    ]
+    def is_rd(a: dict, letter: str) -> bool:
+        return (
+            not a["tempo"]
+            and a["lead"] == 2
+            and a["name"].startswith(letter)
+            and len(a["name"]) > 1
+            and a["name"][1].isdigit()
+            and bool(a["coords"])
+        )
+
+    r_areas = [a for a in areas if is_rd(a, "R")]
+    d_areas = [a for a in areas if is_rd(a, "D")]
     pca_areas = [a for a in areas if a["lead"] == 1 and a["typ"] == "T" and a["coords"]]
 
     esnj_esmv = f"""
@@ -138,13 +144,13 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
     parts: list[str] = [
         esnj_esmv,
         "",
-        "// R-areas from TopSkyAreas (one map each; ACTIVE:1 when always-on in TopSky)",
+        "// AIP R-areas from TopSkyAreas (excl. tempo; ACTIVE:1 when always-on)",
     ]
     for a in r_areas:
         parts.extend(
             one_map(
                 a["name"],
-                "R-AREAS",
+                "R/D-Areas",
                 "RAREAS,RTC",
                 a["coords"],
                 "RED/40",
@@ -154,12 +160,12 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
             )
         )
 
-    parts.append("// D-areas from TopSkyAreas (one map each; ACTIVE:1 when always-on in TopSky)")
+    parts.append("// AIP D-areas from TopSkyAreas (excl. tempo; ACTIVE:1 when always-on)")
     for a in d_areas:
         parts.extend(
             one_map(
                 a["name"],
-                "R-AREAS",
+                "R/D-Areas",
                 "RAREAS,RTC",
                 a["coords"],
                 "RED/40",
@@ -208,7 +214,8 @@ def main() -> None:
 
     def is_r(a: dict) -> bool:
         return (
-            a["lead"] == 2
+            not a["tempo"]
+            and a["lead"] == 2
             and a["name"].startswith("R")
             and len(a["name"]) > 1
             and a["name"][1].isdigit()
@@ -217,7 +224,8 @@ def main() -> None:
 
     def is_d(a: dict) -> bool:
         return (
-            a["lead"] == 2
+            not a["tempo"]
+            and a["lead"] == 2
             and a["name"].startswith("D")
             and len(a["name"]) > 1
             and a["name"][1].isdigit()
@@ -230,9 +238,18 @@ def main() -> None:
     r_n = sum(1 for a in areas if is_r(a))
     d_n = sum(1 for a in areas if is_d(a))
     pca_n = sum(1 for a in areas if is_pca(a))
+    tempo_n = sum(
+        1
+        for a in areas
+        if a["tempo"]
+        and a["lead"] == 2
+        and a["name"][:1] in "RD"
+        and len(a["name"]) > 1
+        and a["name"][1].isdigit()
+    )
     always = [a["name"] for a in areas if a["always_active"] and (is_r(a) or is_d(a) or is_pca(a))]
     print(f"Updated {MAPS}")
-    print(f"Maps: R={r_n}, D={d_n}, PCA={pca_n} (plus ESNJ/ESMV)")
+    print(f"Maps: R={r_n}, D={d_n}, PCA={pca_n} (plus ESNJ/ESMV); skipped tempo R/D={tempo_n}")
     print(f"ACTIVE:1 ({len(always)}): {', '.join(always)}")
 
 
