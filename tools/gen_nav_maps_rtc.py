@@ -1,7 +1,10 @@
 """Regenerate GRP NAV maps: FIXES, FIXES + L, RNP, RNP + L, NDB, NDB + L.
 
 FIXES/RNP names come from ASR/ESAA_TWR_APP.asr Fixes: entries
-(already FIR-filtered). Classification: AAAAA -> FIX, AA### -> RNP.
+(already FIR-filtered). Classification:
+  AA### -> RNP
+  AAAAA in RNP_NAMED -> RNP (terminal/RNP procedure fixes)
+  other AAAAA -> FIX
 
 NDBs come from the EuroScope SCT [NDB] section; symbols outside ESAA FIR
 + 50 NM are kept but commented out.
@@ -27,6 +30,70 @@ FIR_SIMPLIFY_NM = 8.0
 
 FIX_RE = re.compile(r"^[A-Z]{5}$")
 RNP_RE = re.compile(r"^[A-Z]{2}\d{3}$")
+
+# Named fixes that belong on RNP (not FIXES). UVTUK = user "UTVUK".
+RNP_NAMED = {
+    "ABKIN",
+    "AGDIS",
+    "BAGLO",
+    "BALEX",
+    "BALNU",
+    "BAMAX",
+    "BYGDE",
+    "DEMUS",
+    "DIMGA",
+    "DITVA",
+    "DIXOT",
+    "DOSIV",
+    "DUXNO",
+    "EKLOV",
+    "EKMUN",
+    "EMDOL",
+    "ENOVI",
+    "EPITA",
+    "EXENA",
+    "GATVI",
+    "GESRI",
+    "GIXAK",
+    "GOKPU",
+    "GOLAV",
+    "GOPNI",
+    "IBTOX",
+    "IDMUK",
+    "INDAK",
+    "IXIBI",
+    "LENGO",
+    "LUVIX",
+    "MENZO",
+    "MOKMO",
+    "NATVI",
+    "NEKPO",
+    "NOLGI",
+    "OLGOL",
+    "OSDOK",
+    "OSRUK",
+    "PASCA",
+    "PELAB",
+    "RETGU",
+    "RILUG",
+    "RUGIX",
+    "RUWER",
+    "SIRVA",
+    "SOPAK",
+    "SOVAS",
+    "SULAX",
+    "SUXEM",
+    "TAKOT",
+    "TESVI",
+    "TUVIX",
+    "ULGOT",
+    "UPLAX",
+    "UVTUK",
+    "VAPUB",
+    "VEPAX",
+    "XENBU",
+    "XIBTI",
+}
 COORD_RE = re.compile(
     r"([NS])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})\s+([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})"
 )
@@ -239,11 +306,19 @@ def main() -> None:
     fir = parse_esa_fir_buffer()
 
     fixes = asr_fixes()
-    fix_names = [n for n in fixes if FIX_RE.fullmatch(n)]
-    rnp_names = [n for n in fixes if RNP_RE.fullmatch(n)]
-    other = [n for n in fixes if n not in fix_names and n not in rnp_names]
+    rnp_names = sorted(
+        n for n in fixes if RNP_RE.fullmatch(n) or n in RNP_NAMED
+    )
+    fix_names = sorted(
+        n for n in fixes if FIX_RE.fullmatch(n) and n not in RNP_NAMED
+    )
+    classified = set(fix_names) | set(rnp_names)
+    other = [n for n in fixes if n not in classified]
     if other:
         raise SystemExit(f"unclassified Fixes entries: {other}")
+    missing_named = sorted(n for n in RNP_NAMED if n not in fixes)
+    if missing_named:
+        print(f"WARNING: RNP_NAMED not in ASR Fixes: {', '.join(missing_named)}")
 
     ndbs = [
         (name, lat, lon, fir.contains(Point(lon, lat)) or fir.touches(Point(lon, lat)))
@@ -274,7 +349,7 @@ def main() -> None:
             rnp_names,
             labels=False,
             active=True,
-            comment="// RNP-style fixes (XXYYY) from ESAA_TWR_APP.asr",
+            comment="// RNP: XX### + named terminal/RNP fixes from ESAA_TWR_APP.asr",
         ),
     )
     maps = replace_map(

@@ -150,7 +150,7 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
         parts.extend(
             one_map(
                 a["name"],
-                "R/D-Areas",
+                "R/D-AREAS",
                 "RAREAS,RTC",
                 a["coords"],
                 "RED/40",
@@ -165,7 +165,7 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
         parts.extend(
             one_map(
                 a["name"],
-                "R/D-Areas",
+                "R/D-AREAS",
                 "RAREAS,RTC",
                 a["coords"],
                 "RED/40",
@@ -185,7 +185,7 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
                 "PCA,RTC",
                 a["coords"],
                 "WHITE/12",
-                "WHITE/70",
+                "ESGG_ORANGE/80",
                 "DASH:1",
                 a["always_active"],
             )
@@ -220,7 +220,7 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
                 "PCA,RTC",
                 a["coords"],
                 "WHITE/12",
-                "WHITE/70",
+                "ESGG_ORANGE/80",
                 "DASH:1",
                 a["always_active"],
             )
@@ -234,7 +234,7 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
                 "PCA,RTC",
                 a["coords"],
                 "WHITE/12",
-                "WHITE/70",
+                "ESGG_ORANGE/80",
                 "DASH:1",
                 a["always_active"],
             )
