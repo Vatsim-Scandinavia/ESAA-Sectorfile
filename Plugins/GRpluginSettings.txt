@@ -1,4 +1,5 @@
 System_GlobalMenu_FontSize=15
+Maps_URL=https://github.com/Vatsim-Scandinavia/ESAA-Sectorfile/raw/refs/heads/main/OTHER/GRpluginMaps.txt
 GroundLabel_Filter_NoState=1
 GroundLabel_Filter_OnFreq=1
 GroundLabel_Filter_Parked=1
