@@ -98,6 +98,7 @@ Fixes:ABALA:symbol
 Fixes:ABAMA:symbol
 Fixes:ABAXI:symbol
 Fixes:ABEGI:symbol
+Fixes:ABKIN:symbol
 Fixes:ABVUR:symbol
 Fixes:ADOVI:symbol
 Fixes:ADVIS:symbol
@@ -197,6 +198,7 @@ Fixes:DOFOK:symbol
 Fixes:DOPEM:symbol
 Fixes:DOPUD:symbol
 Fixes:DOSIV:symbol
+Fixes:DUXNO:symbol
 Fixes:EBURI:symbol
 Fixes:EDAXA:symbol
 Fixes:EGAGO:symbol
@@ -341,7 +343,11 @@ Fixes:KM850:symbol
 Fixes:KM851:symbol
 Fixes:KM852:symbol
 Fixes:KN501:symbol
+Fixes:KN530:symbol
+Fixes:KN630:symbol
 Fixes:KN801:symbol
+Fixes:KN830:symbol
+Fixes:KN920:symbol
 Fixes:KOGAV:symbol
 Fixes:KOKAK:symbol
 Fixes:KOLJA:symbol
@@ -407,6 +413,7 @@ Fixes:MATEK:symbol
 Fixes:MAVIP:symbol
 Fixes:MAXIV:symbol
 Fixes:MAXUM:symbol
+Fixes:MENZO:symbol
 Fixes:MIDIC:symbol
 Fixes:MIKNA:symbol
 Fixes:MILNU:symbol
@@ -482,6 +489,9 @@ Fixes:NEXOV:symbol
 Fixes:NG551:symbol
 Fixes:NG552:symbol
 Fixes:NG553:symbol
+Fixes:NG561:symbol
+Fixes:NG562:symbol
+Fixes:NG563:symbol
 Fixes:NG850:symbol
 Fixes:NG853:symbol
 Fixes:NG854:symbol
@@ -589,9 +599,11 @@ Fixes:OGLAV:symbol
 Fixes:OGLOB:symbol
 Fixes:OGRIN:symbol
 Fixes:OH501:symbol
+Fixes:OH553:symbol
 Fixes:OH554:symbol
 Fixes:OH556:symbol
 Fixes:OH801:symbol
+Fixes:OH851:symbol
 Fixes:OH852:symbol
 Fixes:OH853:symbol
 Fixes:OK521:symbol
@@ -621,9 +633,11 @@ Fixes:OW610:symbol
 Fixes:OW840:symbol
 Fixes:OXJAG:symbol
 Fixes:OXOTI:symbol
+Fixes:PA551:symbol
 Fixes:PA570:symbol
 Fixes:PA571:symbol
 Fixes:PA590:symbol
+Fixes:PA851:symbol
 Fixes:PA920:symbol
 Fixes:PA921:symbol
 Fixes:PA922:symbol
@@ -779,6 +793,7 @@ Fixes:UMTON:symbol
 Fixes:UNGAV:symbol
 Fixes:UNKAS:symbol
 Fixes:UNTOB:symbol
+Fixes:UP550:symbol
 Fixes:UP551:symbol
 Fixes:UP552:symbol
 Fixes:UP851:symbol
