@@ -1,15 +1,17 @@
 """
 Deactivate NAV symbols outside ESAA FIR + 50 NM.
 
-- GRpluginMaps.txt: comment out SYMBOL lines under AIRPORTS/VORS/NDBS/FIXES/RNP/VRP
-- ASR/*.asr: drop Airports:/VORs:/NDBs:/Fixes: rows whose SCT coords are outside
+- GRpluginMaps.txt: comment out SYMBOL / SYMBOL/LB lines under
+  AIRPORTS, VOR, NDB, FIXES, RNP, MIL, VRP (+ L / MIL variants)
+- ASR/*.asr: drop Airports:/VORs:/NDBs:/Fixes: rows outside the clip
 """
 
 from __future__ import annotations
 
-from pathlib import Path
 import math
 import re
+from pathlib import Path
+
 from shapely.geometry import Point, Polygon
 from shapely.ops import transform
 
@@ -17,13 +19,22 @@ ROOT = Path(__file__).resolve().parents[1]
 TOPSKY_PATH = ROOT / "OTHER" / "TopSkyAreas.txt"
 GRP_PATH = ROOT / "Plugins" / "GRpluginMaps.txt"
 ASR_DIR = ROOT / "ASR"
-SCT_PATH = Path(
-    r"C:\Users\maxlk\AppData\Roaming\EuroScope\ESAA-Sweden_20261109173548-261101-0002.sct"
-)
+EUROSCOPE = Path.home() / "AppData" / "Roaming" / "EuroScope"
 
 FIR_BUFFER_NM = 50.0
 FIR_SIMPLIFY_NM = 8.0
-NAV_MAPS = {"AIRPORTS", "VORS", "NDBS", "FIXES", "RNP", "VRP"}
+
+# Base map titles (MAP:<title>:…) that should be FIR-clipped
+NAV_MAP_PREFIXES = (
+    "AIRPORTS",
+    "VOR",
+    "NDB",
+    "FIXES",
+    "RNP",
+    "MIL",
+    "VRP",
+)
+
 ASR_PREFIXES = ("Airports:", "VORs:", "NDBs:", "Fixes:")
 
 tops_coord_re = re.compile(
@@ -32,9 +43,9 @@ tops_coord_re = re.compile(
 coord_re = re.compile(
     r"([NS])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})\s+([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})"
 )
-sym_re = re.compile(r"^(//)?\s*SYMBOL:([^:]+):(.+)$")
+sym_re = re.compile(r"^(//)?\s*SYMBOL(?:/LB)?:([^:]+):(.+)$")
 coord_sym_re = re.compile(
-    r"^([NS]\d{3}\.\d{2}\.\d{2}\.\d{3}):([EW]\d{3}\.\d{2}\.\d{2}\.\d{3})$"
+    r"^([NS]\d{3}\.\d{2}\.\d{2}\.\d{3}):([EW]\d{3}\.\d{2}\.\d{2}\.\d{3})(?::.*)?$"
 )
 lat_re = re.compile(r"^([NS])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})$")
 lon_re = re.compile(r"^([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})$")
@@ -43,6 +54,13 @@ lon_re = re.compile(r"^([EW])(\d{3})\.(\d{2})\.(\d{2})\.(\d{3})$")
 def dms_to_deg(hemi: str, d: int, mi: int, s: int, f: int) -> float:
     val = d + mi / 60 + (s + f / 1000) / 3600
     return -val if hemi in ("S", "W") else val
+
+
+def find_sct() -> Path:
+    cands = list(EUROSCOPE.glob("ESAA-Sweden*.sct")) + list(ROOT.glob("ESAA-Sweden*.sct"))
+    if not cands:
+        raise FileNotFoundError("No ESAA-Sweden*.sct found")
+    return max(cands, key=lambda p: p.stat().st_mtime)
 
 
 def parse_esa_fir_polygon(path: Path) -> Polygon:
@@ -145,19 +163,33 @@ def inside_clip(clip: Polygon, lon: float, lat: float) -> bool:
     return clip.contains(p) or clip.touches(p)
 
 
+def is_nav_map(title: str) -> bool:
+    """True for NAV symbol maps; skip ground maps like 'MIL Aprons'."""
+    t = title.strip()
+    if t.startswith("MIL ") and not t.startswith("MIL +"):
+        return False  # MIL Aprons etc.
+    for prefix in NAV_MAP_PREFIXES:
+        if t == prefix or t.startswith(prefix + " ") or t.startswith(prefix + "+"):
+            return True
+    return False
+
+
 def filter_grplugin(clip: Polygon, lookups: dict[str, tuple[float, float]]) -> None:
-    lines = GRP_PATH.read_text(encoding="utf-8").splitlines()
+    raw = GRP_PATH.read_bytes().decode("cp1252")
+    lines = raw.splitlines()
     out: list[str] = []
     cur: str | None = None
     kept = dropped = unknown = 0
 
     for line in lines:
         if line.startswith("MAP:"):
-            cur = line.split(":")[1]
+            # MAP:TITLE:flags
+            parts = line.split(":")
+            cur = parts[1] if len(parts) > 1 else ""
             out.append(line)
             continue
 
-        if cur not in NAV_MAPS:
+        if cur is None or not is_nav_map(cur):
             out.append(line)
             continue
 
@@ -182,9 +214,10 @@ def filter_grplugin(clip: Polygon, lookups: dict[str, tuple[float, float]]) -> N
             ok = inside_clip(clip, lon, lat)
 
         if ok:
-            # Reactivate if previously commented by this tool.
-            if already and line.lstrip().startswith("//SYMBOL:"):
-                out.append(line.lstrip()[2:])
+            if already and line.lstrip().startswith("//"):
+                # strip a single leading //
+                stripped = line.lstrip()
+                out.append(stripped[2:] if stripped.startswith("//") else line)
             else:
                 out.append(line)
             kept += 1
@@ -195,7 +228,7 @@ def filter_grplugin(clip: Polygon, lookups: dict[str, tuple[float, float]]) -> N
                 out.append("//" + line)
             dropped += 1
 
-    GRP_PATH.write_text("\n".join(out) + "\n", encoding="utf-8")
+    GRP_PATH.write_bytes(("\n".join(out) + "\n").encode("cp1252"))
     print(f"GRpluginMaps NAV: keep={kept} deactivate={dropped} unknown_keep={unknown}")
 
 
@@ -227,14 +260,15 @@ def filter_asr(clip: Polygon, lookups: dict[str, tuple[float, float]]) -> None:
 
 
 def main() -> None:
+    sct_path = find_sct()
     clip = buffer_polygon_nm(parse_esa_fir_polygon(TOPSKY_PATH), FIR_BUFFER_NM, FIR_SIMPLIFY_NM)
     print(
-        f"Clip FIR+{FIR_BUFFER_NM:.0f} NM bounds "
+        f"Clip ESAA FIR (buffer={FIR_BUFFER_NM:.0f} NM) bounds "
         f"lon={clip.bounds[0]:.2f}..{clip.bounds[2]:.2f} "
         f"lat={clip.bounds[1]:.2f}..{clip.bounds[3]:.2f}"
     )
-    lookups = load_sct_lookups(SCT_PATH)
-    print(f"SCT lookups: {len(lookups)}")
+    lookups = load_sct_lookups(sct_path)
+    print(f"SCT: {sct_path.name}  lookups: {len(lookups)}")
     filter_grplugin(clip, lookups)
     filter_asr(clip, lookups)
 

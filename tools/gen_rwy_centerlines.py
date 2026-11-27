@@ -126,8 +126,22 @@ def parse_apppaths(text: str) -> dict[tuple[str, str], tuple[float, float, float
     return rows
 
 
+def bearing_deg(a: tuple[float, float], b: tuple[float, float]) -> float:
+    """Initial true bearing from a → b (degrees)."""
+    lat1, lon1 = map(math.radians, a)
+    lat2, lon2 = map(math.radians, b)
+    dlon = lon2 - lon1
+    x = math.sin(dlon) * math.cos(lat2)
+    y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)
+    return (math.degrees(math.atan2(x, y)) + 360.0) % 360.0
+
+
 def parse_sct_runways(sct_text: str) -> dict[tuple[str, str], tuple[float, float, float]]:
-    """Threshold + magnetic inbound heading from [RUNWAY] for ES* airports."""
+    """Threshold + true inbound heading from [RUNWAY] for ES* airports.
+
+    SCT stores magnetic headings; dest() draws geographic bearings, so use the
+    true runway-axis bearing (this threshold → opposite threshold) instead.
+    """
     m = re.search(r"\[RUNWAY\](.*?)(?=\n\[|\Z)", sct_text, re.S)
     if not m:
         return {}
@@ -139,9 +153,12 @@ def parse_sct_runways(sct_text: str) -> dict[tuple[str, str], tuple[float, float
         mm = SCT_RWY_RE.match(line)
         if not mm:
             continue
-        rwy1, rwy2, hdg1, hdg2, lat1, lon1, lat2, lon2, icao = mm.groups()
-        rows[(icao, rwy1)] = (parse_dms(lat1), parse_dms(lon1), float(hdg1))
-        rows[(icao, rwy2)] = (parse_dms(lat2), parse_dms(lon2), float(hdg2))
+        rwy1, rwy2, _hdg1, _hdg2, lat1, lon1, lat2, lon2, icao = mm.groups()
+        a = (parse_dms(lat1), parse_dms(lon1))
+        b = (parse_dms(lat2), parse_dms(lon2))
+        # Inbound track for each end ≈ direction along the runway toward the other end
+        rows[(icao, rwy1)] = (*a, bearing_deg(a, b))
+        rows[(icao, rwy2)] = (*b, bearing_deg(b, a))
     return rows
 
 

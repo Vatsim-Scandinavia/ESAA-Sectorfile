@@ -175,12 +175,62 @@ SCTFILEDATA/MONO:GEO\\ESMV CTR
             )
         )
 
+    folder_pca = "PCA/CBA/TRA"
     parts.append("// PCA from TopSkyAreas (one map each; ACTIVE:1 when always-on in TopSky)")
     for a in pca_areas:
         parts.extend(
             one_map(
                 a["name"],
-                "PCA",
+                folder_pca,
+                "PCA,RTC",
+                a["coords"],
+                "WHITE/12",
+                "WHITE/70",
+                "DASH:1",
+                a["always_active"],
+            )
+        )
+
+    def is_tra_cba(a: dict) -> bool:
+        return (
+            not a["tempo"]
+            and a["lead"] == 2
+            and bool(a["coords"])
+            and (
+                (a["name"].startswith("TRA") and len(a["name"]) > 3 and a["name"][3:].isdigit())
+                or (a["name"].startswith("CBA") and len(a["name"]) > 3 and a["name"][3:].isdigit())
+            )
+        )
+
+    # File order (with Window_Maps_Sorting=2): all PCAs, then CBA, TRA last
+    cba_areas = sorted(
+        [a for a in areas if is_tra_cba(a) and a["name"].startswith("CBA")],
+        key=lambda a: a["name"],
+    )
+    tra_areas = sorted(
+        [a for a in areas if is_tra_cba(a) and a["name"].startswith("TRA")],
+        key=lambda a: a["name"],
+    )
+    parts.append("// CBA from TopSkyAreas (below PCAs, above TRA)")
+    for a in cba_areas:
+        parts.extend(
+            one_map(
+                a["name"],
+                folder_pca,
+                "PCA,RTC",
+                a["coords"],
+                "WHITE/12",
+                "WHITE/70",
+                "DASH:1",
+                a["always_active"],
+            )
+        )
+    parts.append("// TRA from TopSkyAreas (bottom of PCA/CBA/TRA)")
+    for a in tra_areas:
+        parts.extend(
+            one_map(
+                a["name"],
+                folder_pca,
                 "PCA,RTC",
                 a["coords"],
                 "WHITE/12",
@@ -235,9 +285,21 @@ def main() -> None:
     def is_pca(a: dict) -> bool:
         return a["lead"] == 1 and a["typ"] == "T" and bool(a["coords"])
 
+    def is_tra_cba(a: dict) -> bool:
+        return (
+            not a["tempo"]
+            and a["lead"] == 2
+            and bool(a["coords"])
+            and (
+                (a["name"].startswith("TRA") and len(a["name"]) > 3 and a["name"][3:].isdigit())
+                or (a["name"].startswith("CBA") and len(a["name"]) > 3 and a["name"][3:].isdigit())
+            )
+        )
+
     r_n = sum(1 for a in areas if is_r(a))
     d_n = sum(1 for a in areas if is_d(a))
     pca_n = sum(1 for a in areas if is_pca(a))
+    tra_n = sum(1 for a in areas if is_tra_cba(a))
     tempo_n = sum(
         1
         for a in areas
@@ -247,9 +309,16 @@ def main() -> None:
         and len(a["name"]) > 1
         and a["name"][1].isdigit()
     )
-    always = [a["name"] for a in areas if a["always_active"] and (is_r(a) or is_d(a) or is_pca(a))]
+    always = [
+        a["name"]
+        for a in areas
+        if a["always_active"] and (is_r(a) or is_d(a) or is_pca(a) or is_tra_cba(a))
+    ]
     print(f"Updated {MAPS}")
-    print(f"Maps: R={r_n}, D={d_n}, PCA={pca_n} (plus ESNJ/ESMV); skipped tempo R/D={tempo_n}")
+    print(
+        f"Maps: R={r_n}, D={d_n}, PCA={pca_n}, CBA/TRA={tra_n} "
+        f"(plus ESNJ/ESMV); skipped tempo R/D={tempo_n}"
+    )
     print(f"ACTIVE:1 ({len(always)}): {', '.join(always)}")
 
 
